@@ -114,7 +114,6 @@
       </div>
       <div id="playlistStatus" class="playlist-status">Loading episodes…</div>
       <div class="grid" id="episodeGrid"></div>
-      <div id="playlistProbe" class="playlist-probe" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -127,89 +126,102 @@
   const grid = document.getElementById('episodeGrid');
   const statusEl = document.getElementById('playlistStatus');
 
-  function makeEpisodeCard(videoId, index){
+  function getVideoId(item){
+    const link = item.link || item.guid || '';
+    const m = link.match(/[?&]v=([^&]+)/) || link.match(/yt:video:([^<]+)/);
+    return m ? m[1] : '';
+  }
+
+  function makeEpisodeCard(item, index){
+    const videoId = getVideoId(item);
+    const title = item.title || `Episode ${index + 1}`;
+    if(!videoId) return null;
+
     const article = document.createElement('article');
     article.className = 'card video-card playlist-card';
-    article.dataset.title = `episode ${index + 1}`;
+    article.dataset.title = title.toLowerCase();
+    const thumb = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+
     article.innerHTML = `
-      <div class="video-frame live-video">
-        <iframe
-          src="https://www.youtube.com/embed/${videoId}?rel=0&playsinline=1&modestbranding=1"
-          title="Mini Podcast episode ${index + 1}"
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
+      <div class="video-frame" data-video-id="${videoId}" aria-label="Play ${title}">
+        <button class="episode-thumb" type="button" style="background:url('${thumb}') center/cover no-repeat" aria-label="Play ${title}">
+          <span class="play-badge">▶</span>
+        </button>
       </div>
       <div class="video-copy actual-episode-copy">
         <span class="tag">Episode ${index + 1}</span>
-        <p>Watch this episode directly on Mini Podcast.</p>
+        <h3>${escapeHtml(title)}</h3>
       </div>`;
+
+    const frame = article.querySelector('.video-frame');
+    frame.querySelector('button').addEventListener('click', () => {
+      frame.innerHTML = `<iframe
+        src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1"
+        title="${escapeHtml(title)}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen></iframe>`;
+    });
+
     return article;
   }
 
-  function renderPlaylist(ids){
-    const clean = [...new Set((ids || []).filter(Boolean))];
-    if(!clean.length){
-      statusEl.textContent = 'Episodes could not be loaded. Tap refresh to try again.';
-      return;
-    }
+  function escapeHtml(str){
+    return String(str).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+  }
+
+  function renderItems(items){
+    const clean = (items || []).filter(item => getVideoId(item));
+    if(!clean.length) throw new Error('No episodes found');
     grid.innerHTML = '';
-    clean.forEach((id, index) => grid.appendChild(makeEpisodeCard(id, index)));
+    clean.forEach((item, index) => {
+      const card = makeEpisodeCard(item, index);
+      if(card) grid.appendChild(card);
+    });
     statusEl.textContent = `${clean.length} episode${clean.length === 1 ? '' : 's'}`;
   }
 
-  // Define this callback BEFORE loading the YouTube API script.
-  window.onYouTubeIframeAPIReady = function(){
-    let tries = 0;
-    const probe = new YT.Player('playlistProbe', {
-      width: '1',
-      height: '1',
-      videoId: '',
-      playerVars: { playsinline: 1 },
-      events: {
-        onReady: function(event){
-          // Explicitly cue the playlist, then read the IDs YouTube returns in playlist order.
-          try {
-            event.target.cuePlaylist({
-              listType: 'playlist',
-              list: PLAYLIST_ID,
-              index: 0,
-              startSeconds: 0
-            });
-          } catch(e) {}
+  async function loadViaRss2Json(){
+    const feed = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
+    const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}`;
+    const res = await fetch(url, {cache:'no-store'});
+    if(!res.ok) throw new Error('rss2json failed');
+    const data = await res.json();
+    if(data.status && data.status !== 'ok') throw new Error('rss2json returned error');
+    return data.items || [];
+  }
 
-          const readPlaylist = () => {
-            let ids = [];
-            try { ids = event.target.getPlaylist() || []; } catch(e) {}
-            if(ids.length){
-              renderPlaylist(ids);
-            } else if(tries++ < 40){
-              setTimeout(readPlaylist, 250);
-            } else {
-              statusEl.textContent = 'Episodes could not be loaded. Tap refresh to try again.';
-            }
-          };
-          setTimeout(readPlaylist, 300);
-        },
-        onError: function(){
-          statusEl.textContent = 'Episodes could not be loaded. Tap refresh to try again.';
-        }
-      }
-    });
-  };
+  async function loadViaAllOrigins(){
+    const feed = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
+    const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(feed)}`;
+    const res = await fetch(url, {cache:'no-store'});
+    if(!res.ok) throw new Error('allorigins failed');
+    const xmlText = await res.text();
+    const xml = new DOMParser().parseFromString(xmlText, 'application/xml');
+    return [...xml.querySelectorAll('entry')].map(entry => ({
+      title: entry.querySelector('title')?.textContent?.trim() || '',
+      link: entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '',
+      guid: entry.querySelector('video\\:id, video\\:id')?.textContent || ''
+    }));
+  }
 
-  // Load the API once, only after the callback above exists.
-  (function loadYouTubeAPI(){
-    if (window.YT && window.YT.Player) {
-      window.onYouTubeIframeAPIReady();
+  async function loadEpisodes(){
+    statusEl.textContent = 'Loading episodes…';
+    try {
+      renderItems(await loadViaRss2Json());
       return;
+    } catch(e) {
+      try {
+        renderItems(await loadViaAllOrigins());
+        return;
+      } catch(e2) {
+        statusEl.innerHTML = 'Episodes could not load automatically. <button id="retryEpisodes" style="background:none;border:0;color:#fff;text-decoration:underline;cursor:pointer;padding:0">Try again</button>';
+        document.getElementById('retryEpisodes')?.addEventListener('click', loadEpisodes);
+      }
     }
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    tag.async = true;
-    document.head.appendChild(tag);
-  })();
+  }
+
+  loadEpisodes();
 </script>
 </body>
 </html>
