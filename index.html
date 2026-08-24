@@ -110,7 +110,7 @@
     <div class="wrap">
       <div class="section-head">
         <div><h2>All Episodes</h2></div>
-        <p>Every episode from the Mini Podcast playlist appears here automatically, in the same order as the playlist.</p>
+        <p>All Mini Podcast episodes, in the exact order provided.</p>
       </div>
       <div id="playlistStatus" class="playlist-status">Loading episodes…</div>
       <div class="grid" id="episodeGrid"></div>
@@ -122,42 +122,47 @@
 </main>
 <footer><div class="wrap footer-inner"><div>© 2026 Mini Podcast</div><div><a href="#top">Back to top ↑</a></div></div></footer>
 <script>
-  const PLAYLIST_ID = 'PLC5UulxHjo3E';
+  const EPISODES = [
+    { id: 'pP8quwhUhos', title: 'Financial Freedom Explained: How to Make Money Work for You' },
+    { id: 'jHY6yM_c11c', title: 'IPO Explained Simply: How Companies Go Public & Who Gets the Money?' },
+    { id: 'DOfZ-y26YQY', title: 'Inflation Explained Simply: Why Everything Keeps Getting More Expensive' },
+    { id: 'Wo2XhzTGC0c', title: 'Gerrymandering Explained Simply: How Politicians Choose Their Voters' },
+    { id: 'zKKU5GQlIGg', title: 'Why Do We Help Others? The Psychology Behind Human Kindness' },
+    { id: 'qg9xjoFfw9Q', title: 'How Buying & Selling Stocks Actually Works | Stock Market Explained Ep. 2' },
+    { id: 'dOtCpbm658k', title: 'The Stock Market Explained Simply | Episode 1: How It All Works' },
+    { id: 'T7zOLhxfUes', title: 'ETFs Explained Simply | Stock Market Explained – Episode 3' },
+    { id: 'pWurXcSnUY8', title: 'NFTs Explained Simply: What They Are, How They Work & Why They Matter' }
+  ];
+
   const grid = document.getElementById('episodeGrid');
   const statusEl = document.getElementById('playlistStatus');
 
-  function getVideoId(item){
-    const link = item.link || item.guid || '';
-    const m = link.match(/[?&]v=([^&]+)/) || link.match(/yt:video:([^<]+)/);
-    return m ? m[1] : '';
+  function escapeHtml(str){
+    return String(str).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   }
 
-  function makeEpisodeCard(item, index){
-    const videoId = getVideoId(item);
-    const title = item.title || `Episode ${index + 1}`;
-    if(!videoId) return null;
-
+  function makeEpisodeCard(episode, index){
     const article = document.createElement('article');
     article.className = 'card video-card playlist-card';
-    article.dataset.title = title.toLowerCase();
-    const thumb = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+    article.dataset.title = episode.title.toLowerCase();
+    const thumb = `https://i.ytimg.com/vi/${episode.id}/hqdefault.jpg`;
 
     article.innerHTML = `
-      <div class="video-frame" data-video-id="${videoId}" aria-label="Play ${title}">
-        <button class="episode-thumb" type="button" style="background:url('${thumb}') center/cover no-repeat" aria-label="Play ${title}">
+      <div class="video-frame" aria-label="Play ${escapeHtml(episode.title)}">
+        <button class="episode-thumb" type="button" style="background:url('${thumb}') center/cover no-repeat" aria-label="Play ${escapeHtml(episode.title)}">
           <span class="play-badge">▶</span>
         </button>
       </div>
       <div class="video-copy actual-episode-copy">
         <span class="tag">Episode ${index + 1}</span>
-        <h3>${escapeHtml(title)}</h3>
+        <h3>${escapeHtml(episode.title)}</h3>
       </div>`;
 
     const frame = article.querySelector('.video-frame');
     frame.querySelector('button').addEventListener('click', () => {
       frame.innerHTML = `<iframe
-        src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1"
-        title="${escapeHtml(title)}"
+        src="https://www.youtube.com/embed/${episode.id}?autoplay=1&rel=0&playsinline=1"
+        title="${escapeHtml(episode.title)}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen></iframe>`;
@@ -166,62 +171,13 @@
     return article;
   }
 
-  function escapeHtml(str){
-    return String(str).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  }
-
-  function renderItems(items){
-    const clean = (items || []).filter(item => getVideoId(item));
-    if(!clean.length) throw new Error('No episodes found');
+  function renderEpisodes(){
     grid.innerHTML = '';
-    clean.forEach((item, index) => {
-      const card = makeEpisodeCard(item, index);
-      if(card) grid.appendChild(card);
-    });
-    statusEl.textContent = `${clean.length} episode${clean.length === 1 ? '' : 's'}`;
+    EPISODES.forEach((episode, index) => grid.appendChild(makeEpisodeCard(episode, index)));
+    statusEl.textContent = `${EPISODES.length} episodes`;
   }
 
-  async function loadViaRss2Json(){
-    const feed = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
-    const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}`;
-    const res = await fetch(url, {cache:'no-store'});
-    if(!res.ok) throw new Error('rss2json failed');
-    const data = await res.json();
-    if(data.status && data.status !== 'ok') throw new Error('rss2json returned error');
-    return data.items || [];
-  }
-
-  async function loadViaAllOrigins(){
-    const feed = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
-    const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(feed)}`;
-    const res = await fetch(url, {cache:'no-store'});
-    if(!res.ok) throw new Error('allorigins failed');
-    const xmlText = await res.text();
-    const xml = new DOMParser().parseFromString(xmlText, 'application/xml');
-    return [...xml.querySelectorAll('entry')].map(entry => ({
-      title: entry.querySelector('title')?.textContent?.trim() || '',
-      link: entry.querySelector('link[rel="alternate"]')?.getAttribute('href') || '',
-      guid: entry.querySelector('video\\:id, video\\:id')?.textContent || ''
-    }));
-  }
-
-  async function loadEpisodes(){
-    statusEl.textContent = 'Loading episodes…';
-    try {
-      renderItems(await loadViaRss2Json());
-      return;
-    } catch(e) {
-      try {
-        renderItems(await loadViaAllOrigins());
-        return;
-      } catch(e2) {
-        statusEl.innerHTML = 'Episodes could not load automatically. <button id="retryEpisodes" style="background:none;border:0;color:#fff;text-decoration:underline;cursor:pointer;padding:0">Try again</button>';
-        document.getElementById('retryEpisodes')?.addEventListener('click', loadEpisodes);
-      }
-    }
-  }
-
-  loadEpisodes();
+  renderEpisodes();
 </script>
 </body>
 </html>
