@@ -141,43 +141,27 @@
     return String(str).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   }
 
-  function makeEpisodeCard(episode, index){
+  EPISODES.forEach((episode, index) => {
     const article = document.createElement('article');
     article.className = 'card video-card playlist-card';
-    article.dataset.title = episode.title.toLowerCase();
-    const thumb = `https://i.ytimg.com/vi/${episode.id}/hqdefault.jpg`;
-
     article.innerHTML = `
-      <div class="video-frame" aria-label="Play ${escapeHtml(episode.title)}">
-        <button class="episode-thumb" type="button" style="background:url('${thumb}') center/cover no-repeat" aria-label="Play ${escapeHtml(episode.title)}">
-          <span class="play-badge">▶</span>
-        </button>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/${episode.id}?rel=0&playsinline=1"
+          title="${escapeHtml(episode.title)}"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
       </div>
       <div class="video-copy actual-episode-copy">
         <span class="tag">Episode ${index + 1}</span>
         <h3>${escapeHtml(episode.title)}</h3>
       </div>`;
+    grid.appendChild(article);
+  });
 
-    const frame = article.querySelector('.video-frame');
-    frame.querySelector('button').addEventListener('click', () => {
-      frame.innerHTML = `<iframe
-        src="https://www.youtube.com/embed/${episode.id}?autoplay=1&rel=0&playsinline=1"
-        title="${escapeHtml(episode.title)}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>`;
-    });
-
-    return article;
-  }
-
-  function renderEpisodes(){
-    grid.innerHTML = '';
-    EPISODES.forEach((episode, index) => grid.appendChild(makeEpisodeCard(episode, index)));
-    statusEl.textContent = `${EPISODES.length} episodes`;
-  }
-
-  renderEpisodes();
+  statusEl.textContent = `${EPISODES.length} episodes`;
 </script>
 </body>
 </html>
