@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mini Podcast — big ideas, short episodes. Explore short episodes about investing, psychology, technology and more." />
+  <meta name="theme-color" content="#07090d" />
+  <title>Mini Podcast</title>
+  <style>
+    :root{
+      --bg:#06070a; --panel:#101319; --panel2:#151922; --text:#f8fafc; --muted:#9ea7b5;
+      --line:#272d38; --accent:#ff2626; --accent2:#ff4a42; --shadow:0 24px 80px rgba(0,0,0,.38);
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(900px 500px at 80% -10%,rgba(255,38,38,.14),transparent 55%),var(--bg);line-height:1.5}
+    a{color:inherit;text-decoration:none} button,input{font:inherit}.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+    nav{position:sticky;top:0;z-index:40;background:rgba(6,7,10,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}
+    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:12px;font-weight:950;letter-spacing:-.045em;font-size:20px}.brand-logo{height:56px;width:auto;display:block;object-fit:contain}.nav-links{display:flex;gap:22px;color:var(--muted);font-size:14px;font-weight:750}.nav-links a:hover{color:#fff}
+    .hero{padding:52px 0 34px}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:999px;padding:8px 12px;text-transform:uppercase;letter-spacing:.1em;font-size:11px;font-weight:900;color:#dce1e8}.dot{width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 0 5px rgba(255,38,38,.12)}h1{font-size:clamp(52px,7.8vw,96px);line-height:.92;letter-spacing:-.075em;margin:24px 0 18px}.hero-copy p{color:var(--muted);font-size:clamp(17px,2vw,21px);max-width:650px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 19px;border-radius:14px;border:1px solid var(--line);font-weight:850;min-height:50px;transition:.2s}.btn-primary{background:var(--accent);border-color:var(--accent);box-shadow:0 14px 34px rgba(255,38,38,.23)}.btn:hover{transform:translateY(-2px)}.btn-secondary{background:rgba(255,255,255,.04)}
+    .hero-visual{position:relative}.hero-visual img{width:100%;display:block;border-radius:26px;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:16/10;object-fit:cover}.floating{position:absolute;left:18px;bottom:18px;right:18px;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 16px;border:1px solid rgba(255,255,255,.13);border-radius:16px;background:rgba(8,8,10,.7);backdrop-filter:blur(14px);font-size:13px}.floating strong{display:block;font-size:15px}.youtube-pill{color:#fff;font-weight:850}.youtube-pill span{color:var(--accent)}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}.stat{padding:18px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}.stat b{display:block;font-size:22px}.stat span{color:var(--muted);font-size:12px}
+    section{padding:58px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:22px}h2{font-size:clamp(31px,4vw,46px);letter-spacing:-.05em;margin:0}.section-head p{color:var(--muted);max-width:560px;margin:0}
+    .player-shell{padding:12px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:var(--shadow)}.player{aspect-ratio:16/9;position:relative;border-radius:16px;overflow:hidden;background:#000}.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.playlist-note{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:16px 6px 3px;color:var(--muted);font-size:14px}.playlist-note strong{color:#fff}
+
+    .featured-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.featured-card{min-height:230px;padding:26px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));display:flex;justify-content:space-between;gap:20px;align-items:flex-end;transition:.22s}.featured-card:hover{transform:translateY(-4px);border-color:#414a59}.featured-card h3{font-size:28px;line-height:1.05;letter-spacing:-.045em;margin:26px 0 10px}.featured-card p{color:var(--muted);margin:0}.arrow{font-size:28px;color:var(--accent)}
+    .library-tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}.search{flex:1;min-width:240px;background:#0d1016;border:1px solid var(--line);color:#fff;padding:13px 15px;border-radius:14px;outline:none}.search:focus{border-color:#49505e}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#0d1016;color:var(--muted);padding:10px 13px;border-radius:999px;cursor:pointer;font-weight:800;font-size:13px}.filter.active,.filter:hover{background:#fff;color:#111;border-color:#fff}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{position:relative;min-height:240px;padding:24px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(150deg,var(--panel2),var(--panel));overflow:hidden;transition:.22s}.card:hover{transform:translateY(-4px);border-color:#414a59}.card:after{content:"";position:absolute;width:170px;height:170px;right:-65px;bottom:-85px;border-radius:50%;background:radial-gradient(circle,rgba(255,38,38,.22),transparent 70%)}.tag{font-size:11px;font-weight:950;color:var(--accent);letter-spacing:.11em;text-transform:uppercase}.card h3{font-size:24px;line-height:1.08;letter-spacing:-.035em;margin:33px 0 11px}.card p{color:var(--muted);font-size:14px;margin:0 0 22px}.watch{font-weight:850;font-size:14px}.watch span{color:var(--accent)}.video-card{padding:0;min-height:0}.video-frame{aspect-ratio:16/9;background:#000;overflow:hidden;border-bottom:1px solid var(--line)}.video-frame iframe{width:100%;height:100%;border:0;display:block}.video-copy{padding:18px 20px 20px}.video-copy .tag{display:block}.video-copy h3{margin:10px 0 8px;font-size:22px}.video-copy p{margin:0;color:var(--muted);font-size:14px}.hidden{display:none!important}
+    .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:stretch}.portrait{border-radius:24px;overflow:hidden;border:1px solid var(--line);min-height:420px}.portrait img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}.about-card{border:1px solid var(--line);background:rgba(255,255,255,.03);border-radius:24px;padding:34px;display:flex;flex-direction:column;justify-content:center}.about-card p{color:var(--muted);font-size:18px}.quote{margin-top:20px;padding:18px;border-left:3px solid var(--accent);background:rgba(255,38,38,.07);border-radius:0 14px 14px 0;font-weight:850}
+    .cta{padding:28px;border-radius:24px;border:1px solid rgba(255,38,38,.25);background:linear-gradient(135deg,rgba(255,38,38,.14),rgba(255,255,255,.03));display:flex;align-items:center;justify-content:space-between;gap:20px}.cta p{margin:6px 0 0;color:var(--muted)}
+    footer{border-top:1px solid var(--line);padding:32px 0 44px;color:var(--muted);font-size:14px}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    @media(max-width:900px){.hero-grid,.about-grid{grid-template-columns:1fr}.featured-row{grid-template-columns:1fr}.hero{padding-top:38px}.grid{grid-template-columns:1fr 1fr}.nav-links{display:none}.hero-visual{order:-1}.hero-visual img{aspect-ratio:16/9}.stats{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:620px){.wrap{width:min(100% - 22px,1180px)}.grid{grid-template-columns:1fr}.section-head,.playlist-note,.cta,.footer-inner{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:1fr}.hero-visual img{aspect-ratio:4/3}.floating{position:static;margin-top:10px}.card{min-height:215px}h1{font-size:54px}.about-card{padding:25px}}
+
+    /* v6 layout overrides */
+    .hero{min-height:calc(100vh - 72px);padding:0;display:flex;align-items:center;position:relative;background:
+      linear-gradient(90deg,rgba(3,4,7,.92) 0%,rgba(3,4,7,.72) 48%,rgba(3,4,7,.32) 72%,rgba(3,4,7,.5) 100%),
+      linear-gradient(0deg,rgba(6,7,10,.9) 0%,transparent 35%),
+      url('mini-podcast-hero.jpeg') center/cover no-repeat;
+      border-bottom:1px solid var(--line)}
+    .hero .wrap{width:min(1180px,calc(100% - 32px))}
+    .hero-grid{display:block}.hero-copy{max-width:720px;padding:90px 0}.hero-visual,.actions,.stats{display:none!important}
+    .hero-copy h1{font-size:clamp(58px,8vw,104px);max-width:760px;text-shadow:0 8px 34px rgba(0,0,0,.55)}
+    .hero-copy p{color:#e3e6eb;max-width:610px;text-shadow:0 3px 18px rgba(0,0,0,.7)}
+    #episodes{display:none!important}
+    #library{padding-top:72px}
+    .video-frame{position:relative;cursor:pointer;background:#090b10}
+    .episode-thumb{position:absolute;inset:0;width:100%;height:100%;border:0;color:#fff;text-align:left;cursor:pointer;padding:22px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+    .episode-thumb:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.72));z-index:0}
+    .episode-thumb>*{position:relative;z-index:1}
+    .thumb-kicker{font-size:11px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
+    .thumb-title{font-size:clamp(21px,2.3vw,31px);line-height:1.02;letter-spacing:-.04em;font-weight:950;max-width:85%;text-shadow:0 3px 18px rgba(0,0,0,.45)}
+    .play-badge{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.93);color:#111;font-size:18px;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+    .thumb1{background:radial-gradient(circle at 78% 24%,rgba(255,71,71,.7),transparent 28%),linear-gradient(135deg,#4a0b0b,#151922 60%,#08090c)}
+    .thumb2{background:radial-gradient(circle at 20% 25%,rgba(57,120,255,.65),transparent 30%),linear-gradient(135deg,#09182f,#151922 60%,#08090c)}
+    .thumb3{background:radial-gradient(circle at 78% 25%,rgba(54,214,126,.62),transparent 28%),linear-gradient(135deg,#062617,#151922 60%,#08090c)}
+    .thumb4{background:radial-gradient(circle at 20% 25%,rgba(255,174,52,.65),transparent 30%),linear-gradient(135deg,#30200a,#151922 60%,#08090c)}
+    .thumb5{background:radial-gradient(circle at 78% 25%,rgba(174,83,255,.66),transparent 30%),linear-gradient(135deg,#241038,#151922 60%,#08090c)}
+    .thumb6{background:radial-gradient(circle at 20% 25%,rgba(255,77,146,.62),transparent 30%),linear-gradient(135deg,#3a1022,#151922 60%,#08090c)}
+    .thumb7{background:radial-gradient(circle at 78% 25%,rgba(54,203,214,.62),transparent 30%),linear-gradient(135deg,#0b2d31,#151922 60%,#08090c)}
+    @media(max-width:900px){.hero{min-height:680px;background-position:center}.hero-copy{padding:82px 0}.hero-visual{display:none!important}}
+    @media(max-width:620px){.hero{min-height:610px;background-position:60% center}.hero-copy{padding:64px 0}.hero-copy h1{font-size:58px}.episode-thumb{padding:18px}.play-badge{width:42px;height:42px}}
+  </style>
+</head>
+<body>
+<nav><div class="wrap nav-inner"><a class="brand" href="#top" aria-label="Mini Podcast home"><img class="brand-logo" src="mini-podcast-logo.png" alt="Mini Podcast"></a><div class="nav-links"><a href="#library">Episodes</a><a href="#about">About</a></div></div></nav>
+<main id="top">
+  <header class="hero"><div class="wrap hero-grid">
+    <div class="hero-copy"><div class="eyebrow"><span class="dot"></span> Learn something in minutes</div><h1>Big ideas.<br>Short episodes.</h1><p>Simple, fast explanations of the stock market, psychology, technology, money, philosophy and more.</p></div>
+  </div></header>
+
+  <section id="library"><div class="wrap"><div class="section-head"><div><h2>Watch Every Episode</h2></div><p>Every episode plays right here on the Mini Podcast website. Choose a topic, press play, and stay on this page.</p></div><div class="library-tools"><input id="search" class="search" type="search" placeholder="Search episodes…" aria-label="Search episodes"><div class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="stock">Stock Market</button><button class="filter" data-filter="investing">Investing</button><button class="filter" data-filter="psychology">Psychology</button><button class="filter" data-filter="technology">Technology</button></div></div><div class="grid" id="episodeGrid">
+    <article class="card video-card" data-category="stock" data-title="How the Stock Market Works"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=0&rel=0" data-title="How the Stock Market Works"><button class="episode-thumb thumb1" type="button" aria-label="Play How the Stock Market Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How the Stock Market Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How the Stock Market Works</h3><p>A simple introduction to stocks, ownership, and how the market fits together.</p></div></article>
+    <article class="card video-card" data-category="stock" data-title="How Buying and Selling Works"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=1&rel=0" data-title="How Buying and Selling Works"><button class="episode-thumb thumb2" type="button" aria-label="Play How Buying & Selling Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How Buying & Selling Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How Buying & Selling Works</h3><p>What actually happens when buyers and sellers meet in the market.</p></div></article>
+    <article class="card video-card" data-category="investing" data-title="ETFs Explained"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=2&rel=0" data-title="ETFs Explained"><button class="episode-thumb thumb3" type="button" aria-label="Play ETFs Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">ETFs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>ETFs Explained</h3><p>What an ETF is, what it holds, and why investors use them.</p></div></article>
+    <article class="card video-card" data-category="investing" data-title="Stock Valuation Explained"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=3&rel=0" data-title="Stock Valuation Explained"><button class="episode-thumb thumb4" type="button" aria-label="Play Stock Valuation Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">Stock Valuation Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>Stock Valuation Explained</h3><p>How investors think about what a company and its shares may be worth.</p></div></article>
+    <article class="card video-card" data-category="technology" data-title="NFTs Explained"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=4&rel=0" data-title="NFTs Explained"><button class="episode-thumb thumb5" type="button" aria-label="Play NFTs Explained"><span class="thumb-kicker">Technology</span><span class="thumb-title">NFTs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Technology</span><h3>NFTs Explained</h3><p>A short guide to NFTs, digital ownership, and why the idea became popular.</p></div></article>
+    <article class="card video-card" data-category="psychology" data-title="Why We Help"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=5&rel=0" data-title="Why We Help"><button class="episode-thumb thumb6" type="button" aria-label="Play Why We Help"><span class="thumb-kicker">Psychology</span><span class="thumb-title">Why We Help</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>Why We Help</h3><p>Explore the psychology behind why people help other people.</p></div></article>
+    <article class="card video-card" data-category="psychology" data-title="How the Mind Works"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=6&rel=0" data-title="How the Mind Works"><button class="episode-thumb thumb7" type="button" aria-label="Play How the Mind Works"><span class="thumb-kicker">Psychology</span><span class="thumb-title">How the Mind Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>How the Mind Works</h3><p>Big psychological ideas explained in a short and understandable format.</p></div></article>
+  </div></div></section>
+
+  <section id="about"><div class="wrap about-grid"><div class="portrait"><img src="host.jpeg" alt="Mini Podcast host"></div><div class="about-card"><div class="eyebrow"><span class="dot"></span> About the show</div><h2 style="margin-top:18px">Learn more.<br>In less time.</h2><p>Mini Podcast is built around one idea: you shouldn't need an hour to understand an interesting topic. Each episode takes a big concept and explains it simply, quickly, and clearly.</p><div class="quote">Clear ideas. Short explanations. One topic at a time.</div></div></div></section>
+
+</main>
+<footer><div class="wrap footer-inner"><div>© 2026 Mini Podcast</div><div><a href="#top">Back to top ↑</a></div></div></footer>
+<script>
+  document.querySelectorAll('.video-frame').forEach(frame=>{
+    const button=frame.querySelector('.episode-thumb');
+    if(!button) return;
+    button.addEventListener('click',()=>{
+      const iframe=document.createElement('iframe');
+      iframe.src=frame.dataset.src + '&autoplay=1';
+      iframe.title=frame.dataset.title || 'Mini Podcast episode';
+      iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen=true;
+      frame.replaceChildren(iframe);
+    });
+  });
+</script>
+<script>
+  const search=document.getElementById('search'); const cards=[...document.querySelectorAll('.card')]; const filters=[...document.querySelectorAll('.filter')]; let active='all';
+  function apply(){const q=search.value.trim().toLowerCase();cards.forEach(c=>{const cat=c.dataset.category;const text=(c.dataset.title+' '+c.innerText).toLowerCase();const okCat=active==='all'||cat===active;const okText=!q||text.includes(q);c.classList.toggle('hidden',!(okCat&&okText));});}
+  search.addEventListener('input',apply); filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(x=>x.classList.remove('active'));b.classList.add('active');active=b.dataset.filter;apply();}));
+</script>
+</body>
+</html>
