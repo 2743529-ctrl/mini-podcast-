@@ -58,6 +58,34 @@
     .thumb7{background:radial-gradient(circle at 78% 25%,rgba(54,203,214,.62),transparent 30%),linear-gradient(135deg,#0b2d31,#151922 60%,#08090c)}
     @media(max-width:900px){.hero{min-height:680px;background-position:center}.hero-copy{padding:82px 0}.hero-visual{display:none!important}}
     @media(max-width:620px){.hero{min-height:610px;background-position:60% center}.hero-copy{padding:64px 0}.hero-copy h1{font-size:58px}.episode-thumb{padding:18px}.play-badge{width:42px;height:42px}}
+
+    /* v7: show the entire hero artwork without cropping */
+    .hero{
+      min-height:0!important;
+      height:auto!important;
+      aspect-ratio:3/2;
+      background-image:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.38) 42%,rgba(0,0,0,.08) 72%),url("mini-podcast-hero.jpeg")!important;
+      background-size:contain!important;
+      background-repeat:no-repeat!important;
+      background-position:center center!important;
+      background-color:#020204!important;
+      display:flex;align-items:center;
+    }
+    .hero .hero-grid{width:100%;}
+    .hero-copy{padding:34px 0!important;max-width:620px;}
+    @media(max-width:900px){
+      .hero{aspect-ratio:3/2!important;min-height:0!important;background-size:contain!important;background-position:center!important;}
+      .hero-copy{padding:24px 0!important;max-width:56%;}
+      .hero-copy h1{font-size:clamp(34px,7vw,58px)!important;}
+      .hero-copy p{font-size:clamp(14px,2.2vw,20px)!important;}
+    }
+    @media(max-width:620px){
+      .hero{aspect-ratio:3/2!important;background-size:contain!important;}
+      .hero-copy{max-width:58%;padding:16px 0!important;}
+      .hero-copy .eyebrow{font-size:8px;padding:6px 8px;}
+      .hero-copy h1{font-size:clamp(29px,8vw,46px)!important;line-height:.98;}
+      .hero-copy p{font-size:12px!important;line-height:1.4;}
+    }
   </style>
 </head>
 <body>
@@ -68,31 +96,60 @@
   </div></header>
 
   <section id="library"><div class="wrap"><div class="section-head"><div><h2>Watch Every Episode</h2></div><p>Every episode plays right here on the Mini Podcast website. Choose a topic, press play, and stay on this page.</p></div><div class="library-tools"><input id="search" class="search" type="search" placeholder="Search episodes…" aria-label="Search episodes"><div class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="stock">Stock Market</button><button class="filter" data-filter="investing">Investing</button><button class="filter" data-filter="psychology">Psychology</button><button class="filter" data-filter="technology">Technology</button></div></div><div class="grid" id="episodeGrid">
-    <article class="card video-card" data-category="stock" data-title="How the Stock Market Works"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=0&rel=0" data-title="How the Stock Market Works"><button class="episode-thumb thumb1" type="button" aria-label="Play How the Stock Market Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How the Stock Market Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How the Stock Market Works</h3><p>A simple introduction to stocks, ownership, and how the market fits together.</p></div></article>
-    <article class="card video-card" data-category="stock" data-title="How Buying and Selling Works"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=1&rel=0" data-title="How Buying and Selling Works"><button class="episode-thumb thumb2" type="button" aria-label="Play How Buying & Selling Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How Buying & Selling Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How Buying & Selling Works</h3><p>What actually happens when buyers and sellers meet in the market.</p></div></article>
-    <article class="card video-card" data-category="investing" data-title="ETFs Explained"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=2&rel=0" data-title="ETFs Explained"><button class="episode-thumb thumb3" type="button" aria-label="Play ETFs Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">ETFs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>ETFs Explained</h3><p>What an ETF is, what it holds, and why investors use them.</p></div></article>
-    <article class="card video-card" data-category="investing" data-title="Stock Valuation Explained"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=3&rel=0" data-title="Stock Valuation Explained"><button class="episode-thumb thumb4" type="button" aria-label="Play Stock Valuation Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">Stock Valuation Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>Stock Valuation Explained</h3><p>How investors think about what a company and its shares may be worth.</p></div></article>
-    <article class="card video-card" data-category="technology" data-title="NFTs Explained"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=4&rel=0" data-title="NFTs Explained"><button class="episode-thumb thumb5" type="button" aria-label="Play NFTs Explained"><span class="thumb-kicker">Technology</span><span class="thumb-title">NFTs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Technology</span><h3>NFTs Explained</h3><p>A short guide to NFTs, digital ownership, and why the idea became popular.</p></div></article>
-    <article class="card video-card" data-category="psychology" data-title="Why We Help"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=5&rel=0" data-title="Why We Help"><button class="episode-thumb thumb6" type="button" aria-label="Play Why We Help"><span class="thumb-kicker">Psychology</span><span class="thumb-title">Why We Help</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>Why We Help</h3><p>Explore the psychology behind why people help other people.</p></div></article>
-    <article class="card video-card" data-category="psychology" data-title="How the Mind Works"><div class="video-frame" data-src="https://www.youtube-nocookie.com/embed/videoseries?list=PLC5UulxHjo3E&index=6&rel=0" data-title="How the Mind Works"><button class="episode-thumb thumb7" type="button" aria-label="Play How the Mind Works"><span class="thumb-kicker">Psychology</span><span class="thumb-title">How the Mind Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>How the Mind Works</h3><p>Big psychological ideas explained in a short and understandable format.</p></div></article>
+    <article class="card video-card" data-category="stock" data-title="How the Stock Market Works"><div class="video-frame" data-index="0" data-title="How the Stock Market Works"><button class="episode-thumb thumb1" type="button" aria-label="Play How the Stock Market Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How the Stock Market Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How the Stock Market Works</h3><p>A simple introduction to stocks, ownership, and how the market fits together.</p></div></article>
+    <article class="card video-card" data-category="stock" data-title="How Buying and Selling Works"><div class="video-frame" data-index="1" data-title="How Buying and Selling Works"><button class="episode-thumb thumb2" type="button" aria-label="Play How Buying & Selling Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How Buying & Selling Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How Buying & Selling Works</h3><p>What actually happens when buyers and sellers meet in the market.</p></div></article>
+    <article class="card video-card" data-category="investing" data-title="ETFs Explained"><div class="video-frame" data-index="2" data-title="ETFs Explained"><button class="episode-thumb thumb3" type="button" aria-label="Play ETFs Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">ETFs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>ETFs Explained</h3><p>What an ETF is, what it holds, and why investors use them.</p></div></article>
+    <article class="card video-card" data-category="investing" data-title="Stock Valuation Explained"><div class="video-frame" data-index="3" data-title="Stock Valuation Explained"><button class="episode-thumb thumb4" type="button" aria-label="Play Stock Valuation Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">Stock Valuation Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>Stock Valuation Explained</h3><p>How investors think about what a company and its shares may be worth.</p></div></article>
+    <article class="card video-card" data-category="technology" data-title="NFTs Explained"><div class="video-frame" data-index="4" data-title="NFTs Explained"><button class="episode-thumb thumb5" type="button" aria-label="Play NFTs Explained"><span class="thumb-kicker">Technology</span><span class="thumb-title">NFTs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Technology</span><h3>NFTs Explained</h3><p>A short guide to NFTs, digital ownership, and why the idea became popular.</p></div></article>
+    <article class="card video-card" data-category="psychology" data-title="Why We Help"><div class="video-frame" data-index="5" data-title="Why We Help"><button class="episode-thumb thumb6" type="button" aria-label="Play Why We Help"><span class="thumb-kicker">Psychology</span><span class="thumb-title">Why We Help</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>Why We Help</h3><p>Explore the psychology behind why people help other people.</p></div></article>
+    <article class="card video-card" data-category="psychology" data-title="How the Mind Works"><div class="video-frame" data-index="6" data-title="How the Mind Works"><button class="episode-thumb thumb7" type="button" aria-label="Play How the Mind Works"><span class="thumb-kicker">Psychology</span><span class="thumb-title">How the Mind Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>How the Mind Works</h3><p>Big psychological ideas explained in a short and understandable format.</p></div></article>
   </div></div></section>
 
   <section id="about"><div class="wrap about-grid"><div class="portrait"><img src="host.jpeg" alt="Mini Podcast host"></div><div class="about-card"><div class="eyebrow"><span class="dot"></span> About the show</div><h2 style="margin-top:18px">Learn more.<br>In less time.</h2><p>Mini Podcast is built around one idea: you shouldn't need an hour to understand an interesting topic. Each episode takes a big concept and explains it simply, quickly, and clearly.</p><div class="quote">Clear ideas. Short explanations. One topic at a time.</div></div></div></section>
 
 </main>
 <footer><div class="wrap footer-inner"><div>© 2026 Mini Podcast</div><div><a href="#top">Back to top ↑</a></div></div></footer>
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
+  // Each card loads its own position in the playlist.
+  // This avoids every card falling back to the first video.
+  let ytReady = false;
+  let ytQueue = [];
+  function onYouTubeIframeAPIReady(){
+    ytReady = true;
+    ytQueue.splice(0).forEach(fn => fn());
+  }
+  function loadEpisode(frame){
+    if(frame.dataset.loaded === '1') return;
+    frame.dataset.loaded = '1';
+    const index = Number(frame.dataset.index || 0);
+    const title = frame.dataset.title || 'Mini Podcast episode';
+    const mount = document.createElement('div');
+    const mountId = 'yt-' + Math.random().toString(36).slice(2);
+    mount.id = mountId;
+    mount.style.width = '100%';
+    mount.style.height = '100%';
+    frame.replaceChildren(mount);
+    const makePlayer = () => {
+      new YT.Player(mountId,{
+        width:'100%', height:'100%',
+        playerVars:{playsinline:1,rel:0,modestbranding:1},
+        events:{onReady:(event)=>{
+          event.target.loadPlaylist({
+            list:'PLC5UulxHjo3E',
+            listType:'playlist',
+            index:index,
+            startSeconds:0
+          });
+        }}
+      });
+    };
+    if(ytReady && window.YT && YT.Player) makePlayer();
+    else ytQueue.push(makePlayer);
+  }
   document.querySelectorAll('.video-frame').forEach(frame=>{
     const button=frame.querySelector('.episode-thumb');
-    if(!button) return;
-    button.addEventListener('click',()=>{
-      const iframe=document.createElement('iframe');
-      iframe.src=frame.dataset.src + '&autoplay=1';
-      iframe.title=frame.dataset.title || 'Mini Podcast episode';
-      iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      iframe.allowFullscreen=true;
-      frame.replaceChildren(iframe);
-    });
+    if(button) button.addEventListener('click',()=>loadEpisode(frame));
   });
 </script>
 <script>
