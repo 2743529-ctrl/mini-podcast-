@@ -86,6 +86,17 @@
       .hero-copy h1{font-size:clamp(29px,8vw,46px)!important;line-height:.98;}
       .hero-copy p{font-size:12px!important;line-height:1.4;}
     }
+  
+    /* Playlist-driven episode library: no hard-coded titles or categories. */
+    .library-tools,.filters,.search{display:none!important}
+    .playlist-status{color:var(--muted);font-size:14px;margin:0 0 20px}
+    .playlist-probe{position:fixed!important;width:1px!important;height:1px!important;left:-9999px!important;top:-9999px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+    .playlist-card{min-height:0!important;padding:0!important;overflow:hidden}
+    .playlist-card .video-frame{aspect-ratio:16/9;border-radius:20px 20px 0 0;overflow:hidden;background:#000;position:relative}
+    .playlist-card iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    .actual-episode-copy{padding:16px 18px 18px}
+    .actual-episode-copy p{margin:8px 0 0;color:var(--muted);font-size:14px}
+    #episodeGrid.grid{align-items:start}
   </style>
 </head>
 <body>
@@ -95,15 +106,17 @@
     <div class="hero-copy"><div class="eyebrow"><span class="dot"></span> Learn something in minutes</div><h1>Big ideas.<br>Short episodes.</h1><p>Simple, fast explanations of the stock market, psychology, technology, money, philosophy and more.</p></div>
   </div></header>
 
-  <section id="library"><div class="wrap"><div class="section-head"><div><h2>Watch Every Episode</h2></div><p>Every episode plays right here on the Mini Podcast website. Choose a topic, press play, and stay on this page.</p></div><div class="library-tools"><input id="search" class="search" type="search" placeholder="Search episodes…" aria-label="Search episodes"><div class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="stock">Stock Market</button><button class="filter" data-filter="investing">Investing</button><button class="filter" data-filter="psychology">Psychology</button><button class="filter" data-filter="technology">Technology</button></div></div><div class="grid" id="episodeGrid">
-    <article class="card video-card" data-category="stock" data-title="How the Stock Market Works"><div class="video-frame" data-index="0" data-title="How the Stock Market Works"><button class="episode-thumb thumb1" type="button" aria-label="Play How the Stock Market Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How the Stock Market Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How the Stock Market Works</h3><p>A simple introduction to stocks, ownership, and how the market fits together.</p></div></article>
-    <article class="card video-card" data-category="stock" data-title="How Buying and Selling Works"><div class="video-frame" data-index="1" data-title="How Buying and Selling Works"><button class="episode-thumb thumb2" type="button" aria-label="Play How Buying & Selling Works"><span class="thumb-kicker">Stock Market</span><span class="thumb-title">How Buying & Selling Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Stock Market</span><h3>How Buying & Selling Works</h3><p>What actually happens when buyers and sellers meet in the market.</p></div></article>
-    <article class="card video-card" data-category="investing" data-title="ETFs Explained"><div class="video-frame" data-index="2" data-title="ETFs Explained"><button class="episode-thumb thumb3" type="button" aria-label="Play ETFs Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">ETFs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>ETFs Explained</h3><p>What an ETF is, what it holds, and why investors use them.</p></div></article>
-    <article class="card video-card" data-category="investing" data-title="Stock Valuation Explained"><div class="video-frame" data-index="3" data-title="Stock Valuation Explained"><button class="episode-thumb thumb4" type="button" aria-label="Play Stock Valuation Explained"><span class="thumb-kicker">Investing</span><span class="thumb-title">Stock Valuation Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Investing</span><h3>Stock Valuation Explained</h3><p>How investors think about what a company and its shares may be worth.</p></div></article>
-    <article class="card video-card" data-category="technology" data-title="NFTs Explained"><div class="video-frame" data-index="4" data-title="NFTs Explained"><button class="episode-thumb thumb5" type="button" aria-label="Play NFTs Explained"><span class="thumb-kicker">Technology</span><span class="thumb-title">NFTs Explained</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Technology</span><h3>NFTs Explained</h3><p>A short guide to NFTs, digital ownership, and why the idea became popular.</p></div></article>
-    <article class="card video-card" data-category="psychology" data-title="Why We Help"><div class="video-frame" data-index="5" data-title="Why We Help"><button class="episode-thumb thumb6" type="button" aria-label="Play Why We Help"><span class="thumb-kicker">Psychology</span><span class="thumb-title">Why We Help</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>Why We Help</h3><p>Explore the psychology behind why people help other people.</p></div></article>
-    <article class="card video-card" data-category="psychology" data-title="How the Mind Works"><div class="video-frame" data-index="6" data-title="How the Mind Works"><button class="episode-thumb thumb7" type="button" aria-label="Play How the Mind Works"><span class="thumb-kicker">Psychology</span><span class="thumb-title">How the Mind Works</span><span class="play-badge">▶</span></button></div><div class="video-copy"><span class="tag">Psychology</span><h3>How the Mind Works</h3><p>Big psychological ideas explained in a short and understandable format.</p></div></article>
-  </div></div></section>
+  <section id="library">
+    <div class="wrap">
+      <div class="section-head">
+        <div><h2>All Episodes</h2></div>
+        <p>Every episode from the Mini Podcast playlist appears here automatically, in the same order as the playlist.</p>
+      </div>
+      <div id="playlistStatus" class="playlist-status">Loading episodes…</div>
+      <div class="grid" id="episodeGrid"></div>
+      <div id="playlistProbe" class="playlist-probe" aria-hidden="true"></div>
+    </div>
+  </section>
 
   <section id="about"><div class="wrap about-grid"><div class="portrait"><img src="host.jpeg" alt="Mini Podcast host"></div><div class="about-card"><div class="eyebrow"><span class="dot"></span> About the show</div><h2 style="margin-top:18px">Learn more.<br>In less time.</h2><p>Mini Podcast is built around one idea: you shouldn't need an hour to understand an interesting topic. Each episode takes a big concept and explains it simply, quickly, and clearly.</p><div class="quote">Clear ideas. Short explanations. One topic at a time.</div></div></div></section>
 
@@ -111,46 +124,74 @@
 <footer><div class="wrap footer-inner"><div>© 2026 Mini Podcast</div><div><a href="#top">Back to top ↑</a></div></div></footer>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-  // Each card loads its own position in the playlist.
-  // This avoids every card falling back to the first video.
-  let ytReady = false;
-  let ytQueue = [];
+  const PLAYLIST_ID = 'PLC5UulxHjo3E';
+  const grid = document.getElementById('episodeGrid');
+  const statusEl = document.getElementById('playlistStatus');
+
+  function makeEpisodeCard(videoId, index){
+    const article = document.createElement('article');
+    article.className = 'card video-card playlist-card';
+    article.innerHTML = `
+      <div class="video-frame live-video">
+        <iframe
+          src="https://www.youtube.com/embed/${videoId}?rel=0&playsinline=1&modestbranding=1"
+          title="Mini Podcast episode ${index + 1}"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
+      </div>
+      <div class="video-copy actual-episode-copy">
+        <span class="tag">Episode ${index + 1}</span>
+        <p>Watch this episode directly on Mini Podcast.</p>
+      </div>`;
+    return article;
+  }
+
+  function renderPlaylist(ids){
+    if(!ids || !ids.length){
+      statusEl.textContent = 'Episodes could not be loaded. Refresh the page to try again.';
+      return;
+    }
+    grid.innerHTML = '';
+    ids.forEach((id, index) => grid.appendChild(makeEpisodeCard(id, index)));
+    statusEl.textContent = `${ids.length} episode${ids.length === 1 ? '' : 's'}`;
+  }
+
+  // YouTube's player API exposes the playlist's actual video IDs in its current order.
   function onYouTubeIframeAPIReady(){
-    ytReady = true;
-    ytQueue.splice(0).forEach(fn => fn());
+    let tries = 0;
+    const probe = new YT.Player('playlistProbe', {
+      width: '1', height: '1',
+      playerVars: {
+        listType: 'playlist',
+        list: PLAYLIST_ID,
+        playsinline: 1
+      },
+      events: {
+        onReady: function(event){
+          const readPlaylist = () => {
+            const ids = event.target.getPlaylist();
+            if(ids && ids.length){
+              renderPlaylist(ids);
+            }else if(tries++ < 20){
+              setTimeout(readPlaylist, 250);
+            }else{
+              statusEl.textContent = 'Episodes could not be loaded. Refresh the page to try again.';
+            }
+          };
+          readPlaylist();
+        },
+        onError: function(){
+          statusEl.textContent = 'Episodes could not be loaded. Refresh the page to try again.';
+        }
+      }
+    });
   }
-  function loadEpisode(frame){
-    if(frame.dataset.loaded === '1') return;
-    frame.dataset.loaded = '1';
-    const index = Number(frame.dataset.index || 0);
-    const title = frame.dataset.title || 'Mini Podcast episode';
-    const mount = document.createElement('div');
-    const mountId = 'yt-' + Math.random().toString(36).slice(2);
-    mount.id = mountId;
-    mount.style.width = '100%';
-    mount.style.height = '100%';
-    frame.replaceChildren(mount);
-    const makePlayer = () => {
-      new YT.Player(mountId,{
-        width:'100%', height:'100%',
-        playerVars:{playsinline:1,rel:0,modestbranding:1},
-        events:{onReady:(event)=>{
-          event.target.loadPlaylist({
-            list:'PLC5UulxHjo3E',
-            listType:'playlist',
-            index:index,
-            startSeconds:0
-          });
-        }}
-      });
-    };
-    if(ytReady && window.YT && YT.Player) makePlayer();
-    else ytQueue.push(makePlayer);
-  }
-  document.querySelectorAll('.video-frame').forEach(frame=>{
-    const button=frame.querySelector('.episode-thumb');
-    if(button) button.addEventListener('click',()=>loadEpisode(frame));
-  });
+
+  const ytApi = document.createElement('script');
+  ytApi.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytApi);
 </script>
 <script>
   const search=document.getElementById('search'); const cards=[...document.querySelectorAll('.card')]; const filters=[...document.querySelectorAll('.filter')]; let active='all';
