@@ -25,9 +25,9 @@ nav{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filter:
 .status-item{flex:0 0 86px;text-align:center;cursor:pointer}.status-ring{width:72px;height:72px;margin:0 auto 9px;padding:3px;border-radius:50%;background:conic-gradient(#25d366 0 85%,#394047 85% 100%);position:relative}.status-ring.empty{background:#353a40}.status-ring img,.status-ring video,.status-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #0d0f12;display:block;background:#1b1e22}.status-avatar{display:grid;place-items:center;font-weight:1000;font-size:23px;color:#fff;background:linear-gradient(145deg,#ed1c24,#6e0910)}
 .status-add{position:absolute;right:-1px;bottom:-1px;width:23px;height:23px;border-radius:50%;background:#25d366;color:#06160c;border:3px solid #0d0f12;display:grid;place-items:center;font-weight:1000;font-size:16px}.status-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status-time{font-size:10px;color:#7f8790;margin-top:2px}.status-upload{display:none}
 .status-empty{padding:0 24px 24px;color:#7f8790;font-size:13px}.status-empty strong{color:#d7dbe0}
-.status-modal{position:fixed;inset:0;z-index:99990;background:#000;display:none;align-items:stretch;justify-content:stretch}.status-modal.open{display:flex}.status-view{position:relative;width:100vw;height:100vh;height:100dvh;background:#000;overflow:hidden;touch-action:none}.status-progress{position:absolute;left:max(10px,env(safe-area-inset-left));right:max(10px,env(safe-area-inset-right));top:max(12px,env(safe-area-inset-top));z-index:5;display:flex;gap:4px}.status-progress span{height:3px;flex:1;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden}.status-progress span i{display:block;height:100%;width:0;background:#fff}.status-progress span.done i{width:100%}.status-progress span.active i{animation:statusProgress 5s linear forwards}.status-view.paused .status-progress span.active i{animation-play-state:paused}@keyframes statusProgress{from{width:0}to{width:100%}}
-.status-topbar{position:absolute;left:max(16px,env(safe-area-inset-left));right:max(16px,env(safe-area-inset-right));top:calc(max(28px,env(safe-area-inset-top)) + 10px);z-index:5;display:flex;align-items:center;gap:10px;color:#fff;text-shadow:0 1px 5px #000}.status-topbar .mini-avatar{width:38px;height:38px;border-radius:50%;background:#ed1c24;display:grid;place-items:center;font-weight:1000}.status-topbar b{font-size:14px}.status-topbar small{display:block;color:#ddd}.status-close{margin-left:auto;background:rgba(0,0,0,.35);border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}.status-media{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;background:#000}.status-media img,.status-media video{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;background:#000}.status-tap{position:absolute;inset:0;display:grid;grid-template-columns:42% 58%;z-index:4}.status-tap button{background:transparent;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}.status-caption{position:absolute;left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));bottom:calc(24px + env(safe-area-inset-bottom));z-index:5;text-align:center;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;font-weight:700}.status-privacy{display:flex;gap:10px;align-items:flex-start;padding:16px 22px 22px;border-top:1px solid #202329;color:#8f979f;font-size:12px}.status-privacy b{color:#cfd4da}
-@media(max-width:620px){.status-shell{border-radius:20px}.status-list{gap:16px;padding-left:16px;padding-right:16px}.status-head{padding:18px}}
+.status-modal{position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:20px}.status-modal.open{display:flex}.status-view{position:relative;width:min(430px,calc(100vw - 28px));height:min(760px,calc(100dvh - 40px));background:#000;overflow:hidden;touch-action:none;border-radius:22px;box-shadow:0 24px 90px rgba(0,0,0,.55);transition:transform .22s ease,opacity .22s ease}.status-progress{position:absolute;left:10px;right:10px;top:12px;z-index:5;display:flex;gap:4px}.status-progress span{height:3px;flex:1;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden}.status-progress span i{display:block;height:100%;width:0;background:#fff}.status-progress span.done i{width:100%}.status-progress span.active i{animation:statusProgress 5s linear forwards}.status-view.paused .status-progress span.active i{animation-play-state:paused}@keyframes statusProgress{from{width:0}to{width:100%}}
+.status-topbar{position:absolute;left:16px;right:16px;top:28px;z-index:5;display:flex;align-items:center;gap:10px;color:#fff;text-shadow:0 1px 5px #000}.status-topbar .mini-avatar{width:38px;height:38px;border-radius:50%;background:#ed1c24;display:grid;place-items:center;font-weight:1000}.status-topbar b{font-size:14px}.status-topbar small{display:block;color:#ddd}.status-close{margin-left:auto;background:rgba(0,0,0,.35);border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}.status-media{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;background:#000}.status-media img,.status-media video{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;background:#000}.status-tap{position:absolute;inset:0;display:grid;grid-template-columns:42% 58%;z-index:4}.status-tap button{background:transparent;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}.status-caption{position:absolute;left:20px;right:20px;bottom:24px;z-index:5;text-align:center;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;font-weight:700}.status-privacy{display:flex;gap:10px;align-items:flex-start;padding:16px 22px 22px;border-top:1px solid #202329;color:#8f979f;font-size:12px}.status-privacy b{color:#cfd4da}
+@media(max-width:620px){.status-shell{border-radius:20px}.status-list{gap:16px;padding-left:16px;padding-right:16px}.status-head{padding:18px}.status-modal{padding:10px}.status-view{width:min(430px,calc(100vw - 16px));height:min(760px,calc(100dvh - 20px));border-radius:18px}}
 footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.heart{color:var(--red)}
 @media(max-width:900px){.about-preview,.idea-box{grid-template-columns:1fr}.why{grid-template-columns:1fr 1fr}.why-card:nth-child(2){border-right:0}.why-card:nth-child(-n+2){border-bottom:1px solid var(--line)}.grid{grid-template-columns:1fr 1fr}.hero{min-height:650px;background-position:62% center}.hero-copy{max-width:56%}.about-copy{padding:34px}.host{min-height:560px}}
 @media(max-width:620px){.wrap{width:min(100% - 22px,var(--max))}.nav{gap:12px}.nav a{font-size:12px}.hero{min-height:620px;background-position:67% center}.hero:before{background:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.45) 58%,rgba(0,0,0,.18)),linear-gradient(0deg,rgba(7,7,7,.86),transparent 35%)}.hero-copy{max-width:72%;padding:58px 0}.mini{font-size:76px}.podcast{font-size:57px;margin-top:5px}.tagline{font-size:25px}.hero-sub{font-size:15px}.grid{grid-template-columns:1fr}.why{grid-template-columns:1fr}.why-card{border-right:0;border-bottom:1px solid var(--line)!important}.why-card:last-child{border-bottom:0!important}.row{grid-template-columns:1fr}.idea-box{padding:24px}.about-copy{padding:26px}.host{min-height:470px}.section{padding:54px 0}}
@@ -90,7 +90,7 @@ const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList'),statusEmpty=document.getElementById('statusEmpty');
 const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime');
-let STATUS_ITEMS=[],statusIndex=0,statusTimer=null,statusPaused=false,statusStartedAt=0,statusRemaining=5000,statusHoldStarted=0,statusSuppressTap=false,statusPointerStartX=0,statusPointerStartY=0,statusPointerMoved=false;
+let STATUS_ITEMS=[],statusIndex=0,statusTimer=null,statusPaused=false,statusStartedAt=0,statusRemaining=5000,statusHoldStarted=0,statusSuppressTap=false,statusPointerStartX=0,statusPointerStartY=0,statusPointerMoved=false,statusDragY=0;
 
 function timeAgo(iso){
   const mins=Math.max(0,Math.floor((Date.now()-new Date(iso).getTime())/60000));
@@ -209,7 +209,7 @@ statusPrev.addEventListener('click',e=>{if(statusSuppressTap){e.preventDefault()
 const statusView=statusModal.querySelector('.status-view');
 statusView.addEventListener('pointerdown',e=>{
   if(e.target.closest('.status-close')||e.target.closest('video[controls]'))return;
-  statusPointerStartX=e.clientX; statusPointerStartY=e.clientY; statusPointerMoved=false;
+  statusPointerStartX=e.clientX; statusPointerStartY=e.clientY; statusPointerMoved=false; statusDragY=0;
   statusHoldStarted=Date.now(); statusSuppressTap=false; pauseStatus();
   try{statusView.setPointerCapture(e.pointerId)}catch(_){}
 });
@@ -217,13 +217,40 @@ statusView.addEventListener('pointermove',e=>{
   if(!statusPaused)return;
   const dx=e.clientX-statusPointerStartX,dy=e.clientY-statusPointerStartY;
   if(Math.abs(dx)>12||Math.abs(dy)>12)statusPointerMoved=true;
+
+  // WhatsApp-style pull down: visually drag the story card with the finger.
+  if(dy>0 && Math.abs(dy)>Math.abs(dx)*.7){
+    statusDragY=dy;
+    const scale=Math.max(.92,1-Math.min(dy,180)/2200);
+    const opacity=Math.max(.72,1-Math.min(dy,220)/700);
+    statusView.style.transform=`translateY(${Math.min(dy,220)}px) scale(${scale})`;
+    statusView.style.opacity=opacity;
+  }
 });
+function resetStatusDrag(){
+  statusView.style.transform='';
+  statusView.style.opacity='';
+  statusDragY=0;
+}
 function endStatusHold(e){
   if(!statusPaused)return;
   const held=Date.now()-statusHoldStarted;
   const dx=e&&typeof e.clientX==='number'?e.clientX-statusPointerStartX:0;
   const dy=e&&typeof e.clientY==='number'?e.clientY-statusPointerStartY:0;
   resumeStatus();
+
+  // Swipe/pull down to dismiss the story viewer.
+  if(dy>85 && Math.abs(dy)>Math.abs(dx)*.9){
+    statusSuppressTap=true;
+    statusView.style.transform='translateY(120px) scale(.96)';
+    statusView.style.opacity='0';
+    setTimeout(()=>{ closeStatus(); resetStatusDrag(); },180);
+    return;
+  }
+
+  resetStatusDrag();
+
+  // Horizontal swipe to navigate.
   if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.15){
     statusSuppressTap=true;
     if(dx<0)nextStatus(); else prevStatus();
@@ -232,7 +259,7 @@ function endStatusHold(e){
   if(held>250)statusSuppressTap=true;
 }
 statusView.addEventListener('pointerup',endStatusHold);
-statusView.addEventListener('pointercancel',e=>{if(statusPaused)resumeStatus();});
+statusView.addEventListener('pointercancel',e=>{if(statusPaused)resumeStatus();resetStatusDrag();});
 statusView.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&statusPaused)endStatusHold(e);});
 document.addEventListener('keydown',e=>{if(!statusModal.classList.contains('open'))return;if(e.key==='Escape')closeStatus();if(e.key==='ArrowRight')nextStatus();if(e.key==='ArrowLeft')prevStatus();});
 loadStatuses();
