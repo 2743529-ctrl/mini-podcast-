@@ -25,7 +25,7 @@ nav{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filter:
 .status-item{flex:0 0 86px;text-align:center;cursor:pointer}.status-ring{width:72px;height:72px;margin:0 auto 9px;padding:3px;border-radius:50%;background:conic-gradient(#25d366 0 85%,#394047 85% 100%);position:relative}.status-ring.empty{background:#353a40}.status-ring img,.status-ring video,.status-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #0d0f12;display:block;background:#1b1e22}.status-avatar{display:grid;place-items:center;font-weight:1000;font-size:23px;color:#fff;background:linear-gradient(145deg,#ed1c24,#6e0910)}
 .status-add{position:absolute;right:-1px;bottom:-1px;width:23px;height:23px;border-radius:50%;background:#25d366;color:#06160c;border:3px solid #0d0f12;display:grid;place-items:center;font-weight:1000;font-size:16px}.status-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status-time{font-size:10px;color:#7f8790;margin-top:2px}.status-upload{display:none}
 .status-empty{padding:0 24px 24px;color:#7f8790;font-size:13px}.status-empty strong{color:#d7dbe0}
-.status-modal{position:fixed;inset:0;z-index:99990;background:#050607;display:none;align-items:center;justify-content:center}.status-modal.open{display:flex}.status-view{position:relative;width:min(440px,100%);height:min(780px,100vh);background:#000;overflow:hidden}.status-progress{position:absolute;left:10px;right:10px;top:12px;z-index:5;display:flex;gap:4px}.status-progress span{height:3px;flex:1;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden}.status-progress span i{display:block;height:100%;width:0;background:#fff}.status-progress span.done i{width:100%}.status-progress span.active i{animation:statusProgress 5s linear forwards}@keyframes statusProgress{from{width:0}to{width:100%}}
+.status-modal{position:fixed;inset:0;z-index:99990;background:#050607;display:none;align-items:center;justify-content:center}.status-modal.open{display:flex}.status-view{position:relative;width:min(440px,100%);height:min(780px,100vh);background:#000;overflow:hidden}.status-progress{position:absolute;left:10px;right:10px;top:12px;z-index:5;display:flex;gap:4px}.status-progress span{height:3px;flex:1;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden}.status-progress span i{display:block;height:100%;width:0;background:#fff}.status-progress span.done i{width:100%}.status-progress span.active i{animation:statusProgress 5s linear forwards}.status-view.paused .status-progress span.active i{animation-play-state:paused}@keyframes statusProgress{from{width:0}to{width:100%}}
 .status-topbar{position:absolute;left:16px;right:16px;top:28px;z-index:5;display:flex;align-items:center;gap:10px;color:#fff;text-shadow:0 1px 5px #000}.status-topbar .mini-avatar{width:38px;height:38px;border-radius:50%;background:#ed1c24;display:grid;place-items:center;font-weight:1000}.status-topbar b{font-size:14px}.status-topbar small{display:block;color:#ddd}.status-close{margin-left:auto;background:rgba(0,0,0,.35);border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}.status-media{width:100%;height:100%;display:grid;place-items:center;background:#000}.status-media img,.status-media video{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}.status-tap{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;z-index:4}.status-tap button{background:transparent;border:0}.status-caption{position:absolute;left:20px;right:20px;bottom:30px;z-index:5;text-align:center;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;font-weight:700}.status-privacy{display:flex;gap:10px;align-items:flex-start;padding:16px 22px 22px;border-top:1px solid #202329;color:#8f979f;font-size:12px}.status-privacy b{color:#cfd4da}
 @media(max-width:620px){.status-shell{border-radius:20px}.status-list{gap:16px;padding-left:16px;padding-right:16px}.status-view{width:100%;height:100vh}.status-head{padding:18px}}
 footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.heart{color:var(--red)}
@@ -90,7 +90,7 @@ const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList'),statusEmpty=document.getElementById('statusEmpty');
 const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime');
-let STATUS_ITEMS=[],statusIndex=0,statusTimer=null;
+let STATUS_ITEMS=[],statusIndex=0,statusTimer=null,statusPaused=false,statusStartedAt=0,statusRemaining=5000,statusHoldStarted=0,statusSuppressTap=false;
 
 function timeAgo(iso){
   const mins=Math.max(0,Math.floor((Date.now()-new Date(iso).getTime())/60000));
@@ -116,11 +116,40 @@ async function loadStatuses(){
 function openStatus(i){if(!STATUS_ITEMS.length)return;statusIndex=(i+STATUS_ITEMS.length)%STATUS_ITEMS.length;statusModal.classList.add('open');statusModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';showStatus();}
 function closeStatus(){statusModal.classList.remove('open');statusModal.setAttribute('aria-hidden','true');document.body.style.overflow='';clearTimeout(statusTimer);const v=statusMedia.querySelector('video');if(v)v.pause();}
 function showStatus(){
-  clearTimeout(statusTimer); const item=STATUS_ITEMS[statusIndex];
+  clearTimeout(statusTimer); statusPaused=false; statusRemaining=5000; statusStartedAt=Date.now();
+  const view=statusModal.querySelector('.status-view'); if(view)view.classList.remove('paused');
+  const item=STATUS_ITEMS[statusIndex];
   statusProgress.innerHTML=STATUS_ITEMS.map((_,i)=>`<span class="${i<statusIndex?'done':i===statusIndex?'active':''}"><i></i></span>`).join('');
   statusMedia.innerHTML=item.media_type==='video'?`<video src="${item.media_url}" autoplay playsinline controls></video>`:`<img src="${item.media_url}" alt="MINI Podcast status">`;
   statusViewerTime.textContent=timeAgo(item.created_at); statusCaption.textContent=item.caption||'MINI Podcast Status';
-  const v=statusMedia.querySelector('video'); if(v){v.onended=()=>nextStatus();}else statusTimer=setTimeout(nextStatus,5000);
+  const v=statusMedia.querySelector('video');
+  if(v){v.onended=()=>nextStatus();}
+  else{statusTimer=setTimeout(nextStatus,statusRemaining);}
+}
+function pauseStatus(){
+  if(statusPaused||!statusModal.classList.contains('open'))return;
+  statusPaused=true;
+  const view=statusModal.querySelector('.status-view'); if(view)view.classList.add('paused');
+  const item=STATUS_ITEMS[statusIndex];
+  if(item&&item.media_type==='video'){
+    const v=statusMedia.querySelector('video'); if(v&&!v.paused)v.pause();
+  }else{
+    statusRemaining=Math.max(0,statusRemaining-(Date.now()-statusStartedAt));
+    clearTimeout(statusTimer);
+  }
+}
+function resumeStatus(){
+  if(!statusPaused||!statusModal.classList.contains('open'))return;
+  statusPaused=false;
+  const view=statusModal.querySelector('.status-view'); if(view)view.classList.remove('paused');
+  const item=STATUS_ITEMS[statusIndex];
+  if(item&&item.media_type==='video'){
+    const v=statusMedia.querySelector('video'); if(v)v.play().catch(()=>{});
+  }else{
+    statusStartedAt=Date.now();
+    clearTimeout(statusTimer);
+    statusTimer=setTimeout(nextStatus,statusRemaining);
+  }
 }
 function nextStatus(){if(statusIndex>=STATUS_ITEMS.length-1){closeStatus();return;}statusIndex++;showStatus();}
 function prevStatus(){if(statusIndex<=0){showStatus();return;}statusIndex--;showStatus();}
@@ -165,7 +194,23 @@ statusUpload.addEventListener('change',async e=>{
     alert('Status upload failed: '+err.message);
   }finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
 });
-statusClose.addEventListener('click',closeStatus);statusNext.addEventListener('click',nextStatus);statusPrev.addEventListener('click',prevStatus);
+statusClose.addEventListener('click',closeStatus);
+statusNext.addEventListener('click',e=>{if(statusSuppressTap){e.preventDefault();statusSuppressTap=false;return;}nextStatus();});
+statusPrev.addEventListener('click',e=>{if(statusSuppressTap){e.preventDefault();statusSuppressTap=false;return;}prevStatus();});
+
+const statusView=statusModal.querySelector('.status-view');
+statusView.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.status-close')||e.target.closest('video[controls]'))return;
+  statusHoldStarted=Date.now(); statusSuppressTap=false; pauseStatus();
+});
+function endStatusHold(){
+  if(!statusPaused)return;
+  if(Date.now()-statusHoldStarted>250)statusSuppressTap=true;
+  resumeStatus();
+}
+statusView.addEventListener('pointerup',endStatusHold);
+statusView.addEventListener('pointercancel',endStatusHold);
+statusView.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')endStatusHold();});
 document.addEventListener('keydown',e=>{if(!statusModal.classList.contains('open'))return;if(e.key==='Escape')closeStatus();if(e.key==='ArrowRight')nextStatus();if(e.key==='ArrowLeft')prevStatus();});
 loadStatuses();
 
