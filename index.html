@@ -27,6 +27,21 @@ nav{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filter:
 .status-empty{padding:0 24px 24px;color:#7f8790;font-size:13px}.status-empty strong{color:#d7dbe0}
 .status-modal{position:fixed;inset:0;z-index:99990;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center;padding:20px}.status-modal.open{display:flex}.status-view{position:relative;width:min(430px,calc(100vw - 28px));height:min(760px,calc(100dvh - 40px));background:#000;overflow:hidden;touch-action:none;border-radius:22px;box-shadow:0 24px 90px rgba(0,0,0,.55);transition:transform .22s ease,opacity .22s ease}.status-progress{position:absolute;left:10px;right:10px;top:12px;z-index:5;display:flex;gap:4px}.status-progress span{height:3px;flex:1;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden}.status-progress span i{display:block;height:100%;width:0;background:#fff}.status-progress span.done i{width:100%}.status-progress span.active i{animation:statusProgress 5s linear forwards}.status-view.paused .status-progress span.active i{animation-play-state:paused}@keyframes statusProgress{from{width:0}to{width:100%}}
 .status-topbar{position:absolute;left:16px;right:16px;top:28px;z-index:5;display:flex;align-items:center;gap:10px;color:#fff;text-shadow:0 1px 5px #000}.status-topbar .mini-avatar{width:38px;height:38px;border-radius:50%;background:#ed1c24;display:grid;place-items:center;font-weight:1000}.status-topbar b{font-size:14px}.status-topbar small{display:block;color:#ddd}.status-close{margin-left:auto;background:rgba(0,0,0,.35);border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}.status-media{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;background:#000}.status-media img,.status-media video{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;background:#000}.status-tap{position:absolute;inset:0;display:grid;grid-template-columns:42% 58%;z-index:4}.status-tap button{background:transparent;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}.status-caption{position:absolute;left:20px;right:20px;bottom:24px;z-index:5;text-align:center;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;font-weight:700}.status-privacy{display:flex;gap:10px;align-items:flex-start;padding:16px 22px 22px;border-top:1px solid #202329;color:#8f979f;font-size:12px}.status-privacy b{color:#cfd4da}
+
+
+.status-speed{position:absolute;left:18px;bottom:78px;z-index:7;display:none;gap:7px;align-items:center}
+.status-speed.show{display:flex}
+.status-speed button{border:0;border-radius:999px;background:rgba(0,0,0,.48);backdrop-filter:blur(10px);color:#fff;padding:9px 11px;font-size:12px;font-weight:850;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.22)}
+.status-speed button.active{background:#fff;color:#111}
+
+.status-actions{position:absolute;right:18px;bottom:78px;z-index:7;display:flex;flex-direction:column;gap:10px;align-items:center}
+.status-action-btn{min-width:48px;height:48px;border:0;border-radius:999px;background:rgba(0,0,0,.48);backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;justify-content:center;gap:5px;font-size:21px;font-weight:800;cursor:pointer;padding:0 12px;box-shadow:0 4px 18px rgba(0,0,0,.28)}
+.status-action-btn span{font-size:12px;font-weight:800}
+.status-action-btn.liked{background:rgba(220,38,38,.88)}
+.status-delete-btn{font-size:18px;display:none}
+.status-delete-btn.show{display:flex}
+.status-view.paused .status-actions{opacity:.96}
+
 @media(max-width:620px){.status-shell{border-radius:20px}.status-list{gap:16px;padding-left:16px;padding-right:16px}.status-head{padding:18px}.status-modal{padding:10px}.status-view{width:min(430px,calc(100vw - 16px));height:min(760px,calc(100dvh - 20px));border-radius:18px}}
 footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.heart{color:var(--red)}
 @media(max-width:900px){.about-preview,.idea-box{grid-template-columns:1fr}.why{grid-template-columns:1fr 1fr}.why-card:nth-child(2){border-right:0}.why-card:nth-child(-n+2){border-bottom:1px solid var(--line)}.grid{grid-template-columns:1fr 1fr}.hero{min-height:650px;background-position:62% center}.hero-copy{max-width:56%}.about-copy{padding:34px}.host{min-height:560px}}
@@ -61,7 +76,18 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
 
 <section class="section status-section" id="status"><div class="wrap"><div class="section-title"><h2>MINI <span>Status</span></h2><p>Quick updates, behind-the-scenes moments, ideas, and previews — in a familiar status-style experience.</p></div><div class="status-shell"><div class="status-head"><h3>Updates</h3><button id="statusAdminBtn" class="btn btn-dark" type="button" style="padding:9px 13px;font-size:12px">🔒 Admin Upload</button></div><div class="status-list" id="statusList"></div><input class="status-upload" id="statusUpload" type="file" accept="image/*,video/*"><div class="status-empty" id="statusEmpty"><strong>No status updates right now.</strong> Check back soon.</div><div class="status-privacy"><span>🔒</span><div><b>Everyone can view.</b> Uploading is protected by a private admin password and handled securely through the Mini Podcast backend.</div></div></div></div></section>
 
-<div class="status-modal" id="statusModal" aria-hidden="true"><div class="status-view"><div class="status-progress" id="statusProgress"></div><div class="status-topbar"><div class="mini-avatar">M</div><div><b>MINI Podcast</b><small id="statusViewerTime">Just now</small></div><button class="status-close" id="statusClose" aria-label="Close">×</button></div><div class="status-media" id="statusMedia"></div><div class="status-caption" id="statusCaption">MINI Podcast Status</div><div class="status-tap"><button id="statusPrev" aria-label="Previous status"></button><button id="statusNext" aria-label="Next status"></button></div></div></div>
+<div class="status-modal" id="statusModal" aria-hidden="true"><div class="status-view"><div class="status-progress" id="statusProgress"></div><div class="status-topbar"><div class="mini-avatar">M</div><div><b>MINI Podcast</b><small id="statusViewerTime">Just now</small></div><button class="status-close" id="statusClose" aria-label="Close">×</button></div><div class="status-media" id="statusMedia"></div><div class="status-caption" id="statusCaption">MINI Podcast Status</div>
+<div class="status-speed" id="statusSpeed">
+  <button type="button" data-speed="1" class="active">1×</button>
+  <button type="button" data-speed="1.25">1.25×</button>
+  <button type="button" data-speed="1.5">1.5×</button>
+  <button type="button" data-speed="2">2×</button>
+</div>
+<div class="status-actions" id="statusActions">
+  <button class="status-action-btn" id="statusLikeBtn" type="button" aria-label="Like status">♡ <span id="statusLikeCount">0</span></button>
+  <button class="status-action-btn status-delete-btn" id="statusDeleteBtn" type="button" aria-label="Delete status">🗑</button>
+</div>
+<div class="status-tap"><button id="statusPrev" aria-label="Previous status"></button><button id="statusNext" aria-label="Next status"></button></div></div></div>
 <section class="section episodes" id="episodes"><div class="wrap"><div class="section-title"><h2>Watch Every <span>Episode</span></h2><p>Every video plays right here on the Mini Podcast website.</p></div><div class="grid" id="episodeGrid"></div></div></section>
 
 <section class="section" id="idea"><div class="wrap"><div class="idea-box"><div class="idea-copy"><h2>Have an <span>idea</span> for the next episode?</h2><p>We’d love to hear it. Your suggestion might become the next topic on MINI Podcast.</p><p><strong>mosheminipodcast@gmail.com</strong></p></div><form class="idea-form" id="ideaForm"><div class="row"><input id="ideaName" placeholder="Your name (optional)"><input id="ideaEmail" type="email" placeholder="Your email (optional)"></div><textarea id="ideaTopic" rows="4" placeholder="What should MINI Podcast talk about next?" required></textarea><textarea id="ideaWhy" rows="3" placeholder="Why this topic? (optional)"></textarea><button class="btn btn-red" type="submit">Send Your Idea →</button><div class="note" id="formNote">This opens your email app with the idea ready to send.</div></form></div></div></section>
@@ -86,11 +112,14 @@ EPISODES.forEach((e,i)=>{const a=document.createElement('article');a.className='
 const SUPABASE_URL='https://iodnvbddyicyyayucbyu.supabase.co';
 const SUPABASE_KEY='sb_publishable_5iJXj1-UvziDEMtRjn7iag_FR1cvGT7';
 const STATUS_UPLOAD_ENDPOINT=SUPABASE_URL+'/functions/v1/status-admin-upload';
+const STATUS_LIKE_ENDPOINT=SUPABASE_URL+'/functions/v1/status-like';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList'),statusEmpty=document.getElementById('statusEmpty');
-const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime');
+const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime'),statusLikeBtn=document.getElementById('statusLikeBtn'),statusLikeCount=document.getElementById('statusLikeCount'),statusDeleteBtn=document.getElementById('statusDeleteBtn'),statusSpeed=document.getElementById('statusSpeed'),statusSpeedButtons=[...document.querySelectorAll('#statusSpeed button')];
 let STATUS_ITEMS=[],statusIndex=0,statusTimer=null,statusPaused=false,statusStartedAt=0,statusRemaining=5000,statusHoldStarted=0,statusSuppressTap=false,statusPointerStartX=0,statusPointerStartY=0,statusPointerMoved=false,statusDragY=0;
+let STATUS_LIKES={},STATUS_LIKED=new Set(),statusPlaybackRate=1;
+const STATUS_VISITOR_ID=(()=>{let v=localStorage.getItem('miniStatusVisitorId');if(!v){v=(crypto.randomUUID?crypto.randomUUID():('visitor-'+Date.now()+'-'+Math.random().toString(36).slice(2)));localStorage.setItem('miniStatusVisitorId',v);}return v;})();
 
 function timeAgo(iso){
   const mins=Math.max(0,Math.floor((Date.now()-new Date(iso).getTime())/60000));
@@ -108,10 +137,19 @@ function renderStatuses(){
   });
   statusEmpty.style.display=STATUS_ITEMS.length?'none':'block';
 }
+async function loadLikeState(){
+  if(!STATUS_ITEMS.length){STATUS_LIKES={};STATUS_LIKED=new Set();return;}
+  try{
+    const r=await fetch(STATUS_LIKE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'state',visitor_id:STATUS_VISITOR_ID,status_ids:STATUS_ITEMS.map(x=>x.id)})});
+    const data=await r.json();
+    if(r.ok){STATUS_LIKES=data.counts||{};STATUS_LIKED=new Set((data.liked||[]).map(Number));}
+  }catch(err){console.error('Like state failed',err);}
+}
 async function loadStatuses(){
   const {data,error}=await sb.from('statuses').select('*').gt('expires_at',new Date().toISOString()).order('created_at',{ascending:true});
   if(error){console.error('Status load failed',error);return;}
-  STATUS_ITEMS=data||[]; renderStatuses();
+  STATUS_ITEMS=data||[]; await loadLikeState(); renderStatuses();
+  if(statusModal.classList.contains('open')&&STATUS_ITEMS.length)showStatus();
 }
 function openStatus(i){if(!STATUS_ITEMS.length)return;statusIndex=(i+STATUS_ITEMS.length)%STATUS_ITEMS.length;statusModal.classList.add('open');statusModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';showStatus();}
 function closeStatus(){statusModal.classList.remove('open');statusModal.setAttribute('aria-hidden','true');document.body.style.overflow='';clearTimeout(statusTimer);const v=statusMedia.querySelector('video');if(v)v.pause();}
@@ -122,12 +160,14 @@ function showStatus(){
   statusProgress.innerHTML=STATUS_ITEMS.map((_,i)=>`<span class="${i<statusIndex?'done':i===statusIndex?'active':''}"><i></i></span>`).join('');
   statusMedia.innerHTML=item.media_type==='video'?`<video src="${item.media_url}" autoplay playsinline></video>`:`<img src="${item.media_url}" alt="MINI Podcast status">`;
   statusViewerTime.textContent=timeAgo(item.created_at); statusCaption.textContent=item.caption||'MINI Podcast Status';
+  updateStatusActions(); updateSpeedControls();
   const v=statusMedia.querySelector('video');
   if(v){
     v.onloadedmetadata=()=>{
       const duration=Math.max(1,Number(v.duration)||5);
       const active=statusProgress.querySelector('span.active i');
-      if(active)active.style.animationDuration=duration+'s';
+      if(active)active.style.animationDuration=(duration/statusPlaybackRate)+'s';
+      v.playbackRate=statusPlaybackRate;
     };
     v.onended=()=>nextStatus();
   }else{
@@ -159,6 +199,65 @@ function resumeStatus(){
     statusTimer=setTimeout(nextStatus,statusRemaining);
   }
 }
+
+
+function updateSpeedControls(){
+  const item=STATUS_ITEMS[statusIndex];
+  const isVideo=!!item&&item.media_type==='video';
+  statusSpeed.classList.toggle('show',isVideo);
+  statusSpeedButtons.forEach(b=>b.classList.toggle('active',Number(b.dataset.speed)===statusPlaybackRate));
+  const v=statusMedia.querySelector('video');
+  if(v)v.playbackRate=statusPlaybackRate;
+}
+function setStatusSpeed(rate){
+  statusPlaybackRate=Number(rate)||1;
+  updateSpeedControls();
+}
+
+function updateStatusActions(){
+  const item=STATUS_ITEMS[statusIndex]; if(!item)return;
+  const count=Number(STATUS_LIKES[String(item.id)]||0);
+  const liked=STATUS_LIKED.has(Number(item.id));
+  statusLikeCount.textContent=String(count);
+  statusLikeBtn.classList.toggle('liked',liked);
+  statusLikeBtn.firstChild.nodeValue=liked?'♥ ':'♡ ';
+  const isAdmin=!!sessionStorage.getItem('miniStatusAdminPassword');
+  statusDeleteBtn.classList.toggle('show',isAdmin);
+}
+async function toggleCurrentLike(){
+  const item=STATUS_ITEMS[statusIndex]; if(!item)return;
+  statusLikeBtn.disabled=true;
+  try{
+    const r=await fetch(STATUS_LIKE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'toggle',status_id:item.id,visitor_id:STATUS_VISITOR_ID})});
+    const data=await r.json();
+    if(!r.ok)throw new Error(data.error||'Like failed');
+    STATUS_LIKES[String(item.id)]=Number(data.count||0);
+    if(data.liked)STATUS_LIKED.add(Number(item.id)); else STATUS_LIKED.delete(Number(item.id));
+    updateStatusActions();
+  }catch(err){console.error(err);}
+  finally{statusLikeBtn.disabled=false;}
+}
+async function deleteCurrentStatus(){
+  const item=STATUS_ITEMS[statusIndex]; if(!item)return;
+  const password=sessionStorage.getItem('miniStatusAdminPassword')||'';
+  if(!password){alert('Unlock Admin Upload first to delete a status.');return;}
+  if(!confirm('Delete this status now?'))return;
+  statusDeleteBtn.disabled=true;
+  try{
+    const r=await fetch(STATUS_UPLOAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','x-admin-password':password},body:JSON.stringify({action:'delete',status_id:item.id})});
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(data.error||'Delete failed');
+    STATUS_ITEMS.splice(statusIndex,1);
+    if(!STATUS_ITEMS.length){closeStatus();await loadStatuses();return;}
+    if(statusIndex>=STATUS_ITEMS.length)statusIndex=STATUS_ITEMS.length-1;
+    await loadLikeState(); renderStatuses(); showStatus();
+  }catch(err){
+    console.error(err);
+    if(String(err.message).toLowerCase().includes('unauthorized'))sessionStorage.removeItem('miniStatusAdminPassword');
+    alert('Could not delete status: '+err.message);
+  }finally{statusDeleteBtn.disabled=false;updateStatusActions();}
+}
+
 function nextStatus(){if(statusIndex>=STATUS_ITEMS.length-1){closeStatus();return;}statusIndex++;showStatus();}
 function prevStatus(){if(statusIndex<=0){showStatus();return;}statusIndex--;showStatus();}
 
@@ -180,6 +279,7 @@ statusAdminBtn.addEventListener('click',async()=>{
       return;
     }
     sessionStorage.setItem('miniStatusAdminPassword',password);
+    updateStatusActions();
     statusUpload.click();
   }catch(err){console.error(err);alert('Could not verify admin access. Please try again.');}
   finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
@@ -202,13 +302,29 @@ statusUpload.addEventListener('change',async e=>{
     alert('Status upload failed: '+err.message);
   }finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
 });
+statusSpeedButtons.forEach(btn=>btn.addEventListener('click',e=>{
+  e.stopPropagation();
+  setStatusSpeed(btn.dataset.speed);
+  const v=statusMedia.querySelector('video');
+  if(v){
+    const active=statusProgress.querySelector('span.active i');
+    if(active && Number.isFinite(v.duration)){
+      const remaining=Math.max(0,v.duration-v.currentTime);
+      active.style.animation='none';
+      active.offsetHeight;
+      active.style.animation=`statusProgress ${remaining/statusPlaybackRate}s linear forwards`;
+    }
+  }
+}));
+statusLikeBtn.addEventListener('click',e=>{e.stopPropagation();toggleCurrentLike();});
+statusDeleteBtn.addEventListener('click',e=>{e.stopPropagation();deleteCurrentStatus();});
 statusClose.addEventListener('click',closeStatus);
 statusNext.addEventListener('click',e=>{if(statusSuppressTap){e.preventDefault();statusSuppressTap=false;return;}nextStatus();});
 statusPrev.addEventListener('click',e=>{if(statusSuppressTap){e.preventDefault();statusSuppressTap=false;return;}prevStatus();});
 
 const statusView=statusModal.querySelector('.status-view');
 statusView.addEventListener('pointerdown',e=>{
-  if(e.target.closest('.status-close')||e.target.closest('video[controls]'))return;
+  if(e.target.closest('.status-close')||e.target.closest('.status-actions')||e.target.closest('.status-speed')||e.target.closest('video[controls]'))return;
   statusPointerStartX=e.clientX; statusPointerStartY=e.clientY; statusPointerMoved=false; statusDragY=0;
   statusHoldStarted=Date.now(); statusSuppressTap=false; pauseStatus();
   try{statusView.setPointerCapture(e.pointerId)}catch(_){}
