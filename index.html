@@ -46,6 +46,124 @@ nav{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filter:
 footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.heart{color:var(--red)}
 @media(max-width:900px){.about-preview,.idea-box{grid-template-columns:1fr}.why{grid-template-columns:1fr 1fr}.why-card:nth-child(2){border-right:0}.why-card:nth-child(-n+2){border-bottom:1px solid var(--line)}.grid{grid-template-columns:1fr 1fr}.hero{min-height:650px;background-position:62% center}.hero-copy{max-width:56%}.about-copy{padding:34px}.host{min-height:560px}}
 @media(max-width:620px){.wrap{width:min(100% - 22px,var(--max))}.nav{gap:12px}.nav a{font-size:12px}.hero{min-height:620px;background-position:67% center}.hero:before{background:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.45) 58%,rgba(0,0,0,.18)),linear-gradient(0deg,rgba(7,7,7,.86),transparent 35%)}.hero-copy{max-width:72%;padding:58px 0}.mini{font-size:76px}.podcast{font-size:57px;margin-top:5px}.tagline{font-size:25px}.hero-sub{font-size:15px}.grid{grid-template-columns:1fr}.why{grid-template-columns:1fr}.why-card{border-right:0;border-bottom:1px solid var(--line)!important}.why-card:last-child{border-bottom:0!important}.row{grid-template-columns:1fr}.idea-box{padding:24px}.about-copy{padding:26px}.host{min-height:470px}.section{padding:54px 0}}
+
+/* Phone-style permanent Status section */
+.status-shell{
+  border:1px solid #2b313b;
+  background:linear-gradient(160deg,#0b0f14,#07090d 70%);
+  border-radius:34px;
+  overflow:hidden;
+  box-shadow:0 30px 90px rgba(0,0,0,.34);
+  padding:0;
+}
+.status-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:28px 30px 18px;
+  border-bottom:1px solid rgba(255,255,255,.06)
+}
+.status-head h2{font-size:34px;margin:0;letter-spacing:-.04em}
+.status-head p{margin:6px 0 0;color:var(--muted);font-size:15px}
+.status-phone{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+  padding:22px;
+}
+.status-tray{
+  border:1px solid rgba(255,255,255,.07);
+  background:#0b0f14;
+  border-radius:26px;
+  padding:18px 18px 16px;
+}
+.status-tray-top{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:16px
+}
+.status-tray-title{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}
+.status-tray-dot{width:10px;height:10px;border-radius:50%;background:#25d366;box-shadow:0 0 0 5px rgba(37,211,102,.12)}
+.status-list{
+  display:flex;
+  gap:22px;
+  overflow-x:auto;
+  padding:4px 2px 8px;
+  min-height:auto;
+  scrollbar-width:none;
+}
+.status-list::-webkit-scrollbar{display:none}
+.status-item{min-width:92px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.status-ring{
+  width:84px;height:84px;border-radius:50%;padding:3px;
+  background:linear-gradient(135deg,#25d366,#52e080);
+  box-shadow:0 10px 28px rgba(37,211,102,.13)
+}
+.status-avatar{
+  display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;
+  border:4px solid #0b0f14;background:#151922
+}
+.status-label{font-size:12px;font-weight:850;max-width:92px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status-feature{
+  position:relative;
+  width:min(420px,100%);
+  margin:0 auto;
+  aspect-ratio:9/16;
+  border-radius:34px;
+  overflow:hidden;
+  background:#000;
+  border:9px solid #171b22;
+  box-shadow:0 22px 60px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.04)
+}
+.status-feature:before{
+  content:"";position:absolute;z-index:10;top:10px;left:50%;transform:translateX(-50%);
+  width:34%;height:22px;border-radius:999px;background:#101318
+}
+.status-feature-placeholder{
+  position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  padding:34px;background:
+  radial-gradient(circle at 50% 25%,rgba(255,35,35,.14),transparent 30%),
+  linear-gradient(180deg,#11151d,#080a0e)
+}
+.status-feature-placeholder strong{font-size:30px;letter-spacing:-.04em}
+.status-feature-placeholder p{color:var(--muted);max-width:290px;margin:10px auto 0}
+.status-feature-preview{position:absolute;inset:0;display:none;background:#000}
+.status-feature-preview.active{display:block}
+.status-feature-preview img,.status-feature-preview video{width:100%;height:100%;object-fit:contain;background:#000}
+.status-feature-overlay{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.48),transparent 19%,transparent 70%,rgba(0,0,0,.55))
+}
+.status-feature-top{
+  position:absolute;z-index:6;left:20px;right:20px;top:42px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.status-feature-name{display:flex;flex-direction:column}
+.status-feature-name strong{font-size:14px}
+.status-feature-name span{font-size:11px;color:#d0d4dc}
+.status-feature-bottom{
+  position:absolute;z-index:7;left:18px;right:18px;bottom:20px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px
+}
+.status-feature-badge{
+  background:rgba(0,0,0,.5);backdrop-filter:blur(10px);
+  border-radius:999px;padding:10px 14px;font-size:12px;font-weight:850
+}
+.status-open-btn{
+  border:0;border-radius:999px;padding:11px 16px;background:#fff;color:#111;font-weight:900;cursor:pointer
+}
+@media(min-width:900px){
+  .status-phone{grid-template-columns:1.05fr .95fr;align-items:start;padding:28px}
+  .status-tray{position:sticky;top:94px}
+}
+@media(max-width:620px){
+  .status-shell{border-radius:24px}
+  .status-head{padding:24px 20px 18px}
+  .status-head h2{font-size:30px}
+  .status-phone{padding:16px}
+  .status-feature{border-width:7px;border-radius:28px}
+  .status-ring{width:78px;height:78px}
+}
+
 </style>
 
 <style id="password-gate-style">
@@ -54,7 +172,11 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
 <script>
 (function(){
   if(sessionStorage.getItem('miniPodcastAccess')==='yes') return;
-  document.addEventListener('DOMContentLoaded',function(){
+  if(statusFeatureOpen)statusFeatureOpen.addEventListener('click',()=>{
+  if(!STATUS_ITEMS.length)return;
+  openStatus(STATUS_ITEMS.length-1);
+});
+document.addEventListener('DOMContentLoaded',function(){
     var gate=document.createElement('div'); gate.id='passwordGate';
     gate.innerHTML='<div class="gate-box"><h1>MINI Podcast</h1><p>Enter the password to continue.</p><form id="passwordGateForm"><input id="passwordGateInput" type="password" placeholder="Password" autocomplete="current-password" autofocus><button type="submit">Enter Website</button><div class="gate-error" id="passwordGateError"></div></form></div>';
     document.body.appendChild(gate); document.body.style.overflow='hidden';
@@ -74,7 +196,63 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
 <section class="section" style="padding-top:18px"><div class="wrap"><div class="section-title"><h2>WHY <span>MINI?</span></h2></div><div class="why"><div class="why-card"><div class="why-icon">💡</div><h3>Insightful</h3><p>Big ideas explained in a simple way.</p></div><div class="why-card"><div class="why-icon">🎧</div><h3>Engaging</h3><p>Conversations that keep you listening.</p></div><div class="why-card"><div class="why-icon">◷</div><h3>Convenient</h3><p>Perfect for your drive, workout, or break.</p></div><div class="why-card"><div class="why-icon">↗</div><h3>Impactful</h3><p>Leave every episode better than before.</p></div></div></div></section>
 
 
-<section class="section status-section" id="status"><div class="wrap"><div class="section-title"><h2>MINI <span>Status</span></h2><p>Quick updates, behind-the-scenes moments, ideas, and previews — in a familiar status-style experience.</p></div><div class="status-shell"><div class="status-head"><h3>Updates</h3><button id="statusAdminBtn" class="btn btn-dark" type="button" style="padding:9px 13px;font-size:12px">🔒 Admin Upload</button></div><div class="status-list" id="statusList"></div><input class="status-upload" id="statusUpload" type="file" accept="image/*,video/*"><div class="status-empty" id="statusEmpty"><strong>No status updates right now.</strong> Check back soon.</div><div class="status-privacy"><span>🔒</span><div><b>Everyone can view.</b> Uploading is protected by a private admin password and handled securely through the Mini Podcast backend.</div></div></div></div></section>
+
+<section id="status">
+  <div class="wrap">
+    <div class="status-shell">
+      <div class="status-head">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> MINI Status</div>
+          <h2 style="margin-top:12px">Status, built into the site.</h2>
+          <p>Quick updates, behind-the-scenes moments, new episode drops, and anything worth sharing between episodes.</p>
+        </div>
+      </div>
+
+      <div class="status-phone">
+        <div class="status-tray">
+          <div class="status-tray-top">
+            <div class="status-tray-title"><span class="status-tray-dot"></span> Status</div>
+            <button class="btn btn-secondary" id="statusAdminBtn" type="button">🔒 Admin Upload</button>
+          </div>
+          <div class="status-list status-row" id="statusList">
+            <button class="status-item my-status" id="myStatusBtn" type="button">
+              <span class="status-ring">
+                <span class="status-avatar">
+                  <span class="status-plus">+</span>
+                </span>
+              </span>
+              <span class="status-label">My status</span>
+            </button>
+          </div>
+          <input id="statusUpload" type="file" accept="image/*,video/*" hidden>
+        </div>
+
+        <div class="status-feature" id="statusFeature">
+          <div class="status-feature-placeholder" id="statusFeaturePlaceholder">
+            <div>
+              <strong>MINI Status</strong>
+              <p>Your latest status will live here like a phone story. Tap a status above to preview it here or open the full story viewer.</p>
+            </div>
+          </div>
+          <div class="status-feature-preview" id="statusFeaturePreview"></div>
+          <div class="status-feature-overlay"></div>
+          <div class="status-feature-top">
+            <div class="status-feature-name">
+              <strong>Mini Podcast</strong>
+              <span id="statusFeatureTime">Latest update</span>
+            </div>
+            <span class="status-feature-badge" id="statusFeatureType">Status</span>
+          </div>
+          <div class="status-feature-bottom">
+            <span class="status-feature-badge">Phone-style Status</span>
+            <button class="status-open-btn" id="statusFeatureOpen" type="button">Open Status</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <div class="status-modal" id="statusModal" aria-hidden="true"><div class="status-view"><div class="status-progress" id="statusProgress"></div><div class="status-topbar"><div class="mini-avatar">M</div><div><b>MINI Podcast</b><small id="statusViewerTime">Just now</small></div><button class="status-close" id="statusClose" aria-label="Close">×</button></div><div class="status-media" id="statusMedia"></div><div class="status-caption" id="statusCaption">MINI Podcast Status</div>
 <div class="status-speed" id="statusSpeed">
@@ -114,6 +292,12 @@ const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList'),statusEmpty=document.getElementById('statusEmpty');
 const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime'),statusLikeBtn=document.getElementById('statusLikeBtn'),statusLikeCount=document.getElementById('statusLikeCount'),statusDeleteBtn=document.getElementById('statusDeleteBtn'),statusSpeed=document.getElementById('statusSpeed'),statusSpeedBtn=document.getElementById('statusSpeedBtn');
+
+const statusFeaturePreview=document.getElementById('statusFeaturePreview');
+const statusFeaturePlaceholder=document.getElementById('statusFeaturePlaceholder');
+const statusFeatureTime=document.getElementById('statusFeatureTime');
+const statusFeatureType=document.getElementById('statusFeatureType');
+const statusFeatureOpen=document.getElementById('statusFeatureOpen');
 let STATUS_ITEMS=[],statusIndex=0,statusTimer=null,statusPaused=false,statusStartedAt=0,statusRemaining=5000,statusHoldStarted=0,statusSuppressTap=false,statusPointerStartX=0,statusPointerStartY=0,statusPointerMoved=false,statusDragY=0;
 let STATUS_LIKES={},STATUS_LIKED=new Set(),statusPlaybackRate=1;
 const STATUS_VISITOR_ID=(()=>{let v=localStorage.getItem('miniStatusVisitorId');if(!v){v=(crypto.randomUUID?crypto.randomUUID():('visitor-'+Date.now()+'-'+Math.random().toString(36).slice(2)));localStorage.setItem('miniStatusVisitorId',v);}return v;})();
@@ -124,6 +308,27 @@ function timeAgo(iso){
   const h=Math.floor(mins/60); return h<24?h+'h ago':'1d ago';
 }
 function statusThumb(item){return item.media_type==='video'?`<video src="${item.media_url}" muted playsinline preload="metadata"></video>`:`<img src="${item.media_url}" alt="MINI Status">`;}
+
+function renderStatusFeature(){
+  const item=STATUS_ITEMS.length?STATUS_ITEMS[STATUS_ITEMS.length-1]:null;
+  if(!statusFeaturePreview||!statusFeaturePlaceholder)return;
+  if(!item){
+    statusFeaturePreview.classList.remove('active');
+    statusFeaturePreview.innerHTML='';
+    statusFeaturePlaceholder.style.display='grid';
+    statusFeatureTime.textContent='No status yet';
+    statusFeatureType.textContent='Status';
+    return;
+  }
+  statusFeaturePlaceholder.style.display='none';
+  statusFeaturePreview.classList.add('active');
+  statusFeaturePreview.innerHTML=item.media_type==='video'
+    ? `<video src="${item.media_url}" muted playsinline preload="metadata"></video>`
+    : `<img src="${item.media_url}" alt="Latest MINI Status">`;
+  statusFeatureTime.textContent=timeAgo(item.created_at);
+  statusFeatureType.textContent=item.media_type==='video'?'Video':'Photo';
+}
+
 function renderStatuses(){
   statusList.innerHTML='';
   STATUS_ITEMS.forEach((item,i)=>{
@@ -145,7 +350,7 @@ async function loadLikeState(){
 async function loadStatuses(){
   const {data,error}=await sb.from('statuses').select('*').gt('expires_at',new Date().toISOString()).order('created_at',{ascending:true});
   if(error){console.error('Status load failed',error);return;}
-  STATUS_ITEMS=data||[]; await loadLikeState(); renderStatuses();
+  STATUS_ITEMS=data||[]; await loadLikeState(); renderStatuses(); renderStatusFeature();
   if(statusModal.classList.contains('open')&&STATUS_ITEMS.length)showStatus();
 }
 function openStatus(i){if(!STATUS_ITEMS.length)return;statusIndex=(i+STATUS_ITEMS.length)%STATUS_ITEMS.length;statusModal.classList.add('open');statusModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';showStatus();}
