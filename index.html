@@ -395,25 +395,35 @@ document.addEventListener('DOMContentLoaded',function(){
   <button class="status-action-btn status-delete-btn" id="statusDeleteBtn" type="button" aria-label="Delete status">🗑</button>
 </div>
 <div class="status-tap"><button id="statusPrev" aria-label="Previous status"></button><button id="statusNext" aria-label="Next status"></button></div></div></div>
-<section class="section episodes" id="episodes"><div class="wrap"><div class="section-title"><h2>Watch Every <span>Episode</span></h2><p>Every video plays right here on the Mini Podcast website.</p></div><div class="grid" id="episodeGrid"></div></div></section>
+<section class="section episodes" id="episodes"><div class="wrap"><div class="section-title"><h2>Watch Every <span>Episode</span></h2><p>Every episode plays right here on the Mini Podcast website.</p></div><div class="grid" id="episodeGrid"></div></div></section>
 
 <section class="section" id="idea"><div class="wrap"><div class="idea-box"><div class="idea-copy"><h2>Have an <span>idea</span> for the next episode?</h2><p>We’d love to hear it. Your suggestion might become the next topic on MINI Podcast.</p><p><strong>mosheminipodcast@gmail.com</strong></p></div><form class="idea-form" id="ideaForm"><div class="row"><input id="ideaName" placeholder="Your name (optional)"><input id="ideaEmail" type="email" placeholder="Your email (optional)"></div><textarea id="ideaTopic" rows="4" placeholder="What should MINI Podcast talk about next?" required></textarea><textarea id="ideaWhy" rows="3" placeholder="Why this topic? (optional)"></textarea><button class="btn btn-red" type="submit">Send Your Idea →</button><div class="note" id="formNote">This opens your email app with the idea ready to send.</div></form></div></div></section>
 
 <footer><div class="wrap footer"><div>© 2026 Mini Podcast</div><div>Thank you for being part of the journey <span class="heart">♥</span></div></div></footer>
 <script>
 const EPISODES=[
-{id:'pP8quwhUhos',title:'Financial Freedom Explained: How to Make Money Work for You'},
-{id:'jHY6yM_c11c',title:'IPO Explained Simply: How Companies Go Public & Who Gets the Money?'},
-{id:'DOfZ-y26YQY',title:'Inflation Explained Simply: Why Everything Keeps Getting More Expensive'},
-{id:'Wo2XhzTGC0c',title:'Gerrymandering Explained Simply: How Politicians Choose Their Voters'},
-{id:'zKKU5GQlIGg',title:'Why Do We Help Others? The Psychology Behind Human Kindness'},
-{id:'qg9xjoFfw9Q',title:'How Buying & Selling Stocks Actually Works | Stock Market Explained Ep. 2'},
-{id:'dOtCpbm658k',title:'The Stock Market Explained Simply | Episode 1: How It All Works'},
-{id:'T7zOLhxfUes',title:'ETFs Explained Simply | Stock Market Explained – Episode 3'},
-{id:'pWurXcSnUY8',title:'NFTs Explained Simply: What They Are, How They Work & Why They Matter'}];
+{provider:'bunny',library:'736827',id:'2c8d08cc-f562-4374-be87-e64df90ffd02',title:'Happiness',isNew:true},
+{provider:'youtube',id:'pP8quwhUhos',title:'Financial Freedom Explained: How to Make Money Work for You'},
+{provider:'youtube',id:'jHY6yM_c11c',title:'IPO Explained Simply: How Companies Go Public & Who Gets the Money?'},
+{provider:'youtube',id:'DOfZ-y26YQY',title:'Inflation Explained Simply: Why Everything Keeps Getting More Expensive'},
+{provider:'youtube',id:'Wo2XhzTGC0c',title:'Gerrymandering Explained Simply: How Politicians Choose Their Voters'},
+{provider:'youtube',id:'zKKU5GQlIGg',title:'Why Do We Help Others? The Psychology Behind Human Kindness'},
+{provider:'youtube',id:'qg9xjoFfw9Q',title:'How Buying & Selling Stocks Actually Works | Stock Market Explained Ep. 2'},
+{provider:'youtube',id:'dOtCpbm658k',title:'The Stock Market Explained Simply | Episode 1: How It All Works'},
+{provider:'youtube',id:'T7zOLhxfUes',title:'ETFs Explained Simply | Stock Market Explained – Episode 3'},
+{provider:'youtube',id:'pWurXcSnUY8',title:'NFTs Explained Simply: What They Are, How They Work & Why They Matter'}];
 const grid=document.getElementById('episodeGrid');
 const esc=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-EPISODES.forEach((e,i)=>{const a=document.createElement('article');a.className='video-card';a.innerHTML=`<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${e.id}?rel=0&playsinline=1" title="${esc(e.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="video-copy"><div class="ep">Episode ${i+1}</div><h3>${esc(e.title)}</h3></div>`;grid.appendChild(a)});
+EPISODES.forEach((e,i)=>{
+  const a=document.createElement('article');
+  a.className='video-card';
+  const player=e.provider==='bunny'
+    ? `https://player.mediadelivery.net/embed/${e.library}/${e.id}?autoplay=false&loop=false&muted=false&preload=true&responsive=true`
+    : `https://www.youtube-nocookie.com/embed/${e.id}?rel=0&playsinline=1`;
+  const label=e.isNew?'NEW EPISODE':`Episode ${EPISODES.length-i}`;
+  a.innerHTML=`<div class="frame"><iframe src="${player}" title="${esc(e.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="video-copy"><div class="ep">${label}</div><h3>${esc(e.title)}</h3></div>`;
+  grid.appendChild(a);
+});
 
 // Shared MINI Status viewer + private admin upload
 const SUPABASE_URL='https://iodnvbddyicyyayucbyu.supabase.co';
