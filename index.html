@@ -164,6 +164,146 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
   .status-ring{width:78px;height:78px}
 }
 
+
+/* Permanent homepage Status section */
+.status-shell{
+  border:1px solid var(--line);
+  background:
+    radial-gradient(900px 420px at 15% 0%,rgba(37,211,102,.08),transparent 45%),
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.018));
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:0 28px 80px rgba(0,0,0,.28);
+}
+.status-head{
+  display:block;
+  padding:40px 38px 26px;
+  border-bottom:1px solid var(--line)
+}
+.status-kicker{
+  display:inline-flex;align-items:center;gap:9px;
+  color:#79e6a1;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase
+}
+.status-kicker:before{
+  content:"";width:9px;height:9px;border-radius:50%;background:#25d366;
+  box-shadow:0 0 0 5px rgba(37,211,102,.12)
+}
+.status-head h2{
+  margin:14px 0 0;
+  font-size:clamp(38px,5vw,66px);
+  letter-spacing:-.055em;
+  line-height:.98
+}
+.status-head p{
+  margin:16px 0 0;
+  color:var(--muted);
+  max-width:760px;
+  font-size:18px;
+  line-height:1.6
+}
+.status-body{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:26px;
+  padding:30px 34px 38px;
+}
+.status-primary{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:24px;
+  align-items:stretch
+}
+.status-latest{
+  min-height:420px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:24px;
+  background:#090c11;
+  overflow:hidden;
+  position:relative;
+}
+.status-latest-media{
+  position:absolute;inset:0;background:#050607
+}
+.status-latest-media img,.status-latest-media video{
+  width:100%;height:100%;object-fit:cover;display:block
+}
+.status-latest-empty{
+  position:absolute;inset:0;
+  display:grid;place-items:center;text-align:center;
+  padding:40px;
+  background:
+    radial-gradient(circle at 50% 20%,rgba(255,36,36,.11),transparent 32%),
+    linear-gradient(180deg,#10151c,#090b0f)
+}
+.status-latest-empty strong{font-size:34px;letter-spacing:-.04em}
+.status-latest-empty p{margin:10px auto 0;color:var(--muted);max-width:420px}
+.status-latest-shade{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.15),transparent 45%,rgba(0,0,0,.74))
+}
+.status-latest-copy{
+  position:absolute;z-index:3;left:26px;right:26px;bottom:24px
+}
+.status-latest-copy .small{
+  color:#d7dde6;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em
+}
+.status-latest-copy h3{
+  margin:7px 0 0;font-size:28px;letter-spacing:-.035em
+}
+.status-latest-actions{
+  margin-top:16px;display:flex;gap:10px;flex-wrap:wrap
+}
+.status-side{
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:24px;
+  background:#0b0f14;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:24px
+}
+.status-side h3{font-size:24px;margin:0}
+.status-side p{color:var(--muted);margin:8px 0 0}
+.status-row-wrap{
+  border-top:1px solid rgba(255,255,255,.06);
+  padding-top:22px
+}
+.status-row-head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px
+}
+.status-row-head strong{font-size:18px}
+.status-list{
+  display:flex;gap:22px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none
+}
+.status-list::-webkit-scrollbar{display:none}
+.status-item{min-width:96px;display:flex;flex-direction:column;align-items:center;gap:9px}
+.status-ring{
+  width:88px;height:88px;border-radius:50%;padding:3px;
+  background:linear-gradient(135deg,#25d366,#5be884)
+}
+.status-avatar{
+  display:block;width:100%;height:100%;border-radius:50%;overflow:hidden;
+  border:4px solid #0b0f14;background:#151922
+}
+.status-label{
+  font-size:12px;color:#fff;font-weight:850;max-width:96px;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;text-align:center
+}
+@media(max-width:900px){
+  .status-primary{grid-template-columns:1fr}
+  .status-latest{min-height:360px}
+}
+@media(max-width:620px){
+  .status-shell{border-radius:24px}
+  .status-head{padding:32px 22px 22px}
+  .status-head p{font-size:16px}
+  .status-body{padding:22px 18px 28px}
+  .status-latest{min-height:320px}
+  .status-side{padding:20px}
+  .status-ring{width:80px;height:80px}
+}
+
 </style>
 
 <style id="password-gate-style">
@@ -197,61 +337,66 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 
+
 <section id="status">
   <div class="wrap">
     <div class="status-shell">
       <div class="status-head">
-        <div>
-          <div class="eyebrow"><span class="dot"></span> MINI Status</div>
-          <h2 style="margin-top:12px">Status, built into the site.</h2>
-          <p>Quick updates, behind-the-scenes moments, new episode drops, and anything worth sharing between episodes.</p>
-        </div>
+        <div class="status-kicker">MINI Status</div>
+        <h2>What’s happening between episodes.</h2>
+        <p>Short updates, behind-the-scenes moments, new episode drops, quick thoughts, and anything worth sharing before the next Mini Podcast goes live.</p>
       </div>
 
-      <div class="status-phone">
-        <div class="status-tray">
-          <div class="status-tray-top">
-            <div class="status-tray-title"><span class="status-tray-dot"></span> Status</div>
-            <button class="btn btn-secondary" id="statusAdminBtn" type="button">🔒 Admin Upload</button>
+      <div class="status-body">
+        <div class="status-primary">
+          <div class="status-latest" id="statusFeature">
+            <div class="status-latest-empty" id="statusFeaturePlaceholder">
+              <div>
+                <strong>Your latest status lives here.</strong>
+                <p>This space stays on the homepage permanently, so visitors always have a place to see the newest update.</p>
+              </div>
+            </div>
+            <div class="status-latest-media status-feature-preview" id="statusFeaturePreview"></div>
+            <div class="status-latest-shade"></div>
+            <div class="status-latest-copy">
+              <div class="small" id="statusFeatureTime">Latest update</div>
+              <h3 id="statusFeatureType">MINI Status</h3>
+              <div class="status-latest-actions">
+                <button class="btn btn-primary" id="statusFeatureOpen" type="button">View Status</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-side">
+            <div>
+              <h3>Post something new</h3>
+              <p>Share a quick photo or video update with everyone visiting the site.</p>
+            </div>
+            <div>
+              <button class="btn btn-primary" id="statusAdminBtn" type="button">🔒 Admin Upload</button>
+              <input id="statusUpload" type="file" accept="image/*,video/*" hidden>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-row-wrap">
+          <div class="status-row-head">
+            <strong>Recent statuses</strong>
           </div>
           <div class="status-list status-row" id="statusList">
             <button class="status-item my-status" id="myStatusBtn" type="button">
               <span class="status-ring">
-                <span class="status-avatar">
-                  <span class="status-plus">+</span>
-                </span>
+                <span class="status-avatar"><span class="status-plus">+</span></span>
               </span>
               <span class="status-label">My status</span>
             </button>
-          </div>
-          <input id="statusUpload" type="file" accept="image/*,video/*" hidden>
-        </div>
-
-        <div class="status-feature" id="statusFeature">
-          <div class="status-feature-placeholder" id="statusFeaturePlaceholder">
-            <div>
-              <strong>MINI Status</strong>
-              <p>Your latest status will live here like a phone story. Tap a status above to preview it here or open the full story viewer.</p>
-            </div>
-          </div>
-          <div class="status-feature-preview" id="statusFeaturePreview"></div>
-          <div class="status-feature-overlay"></div>
-          <div class="status-feature-top">
-            <div class="status-feature-name">
-              <strong>Mini Podcast</strong>
-              <span id="statusFeatureTime">Latest update</span>
-            </div>
-            <span class="status-feature-badge" id="statusFeatureType">Status</span>
-          </div>
-          <div class="status-feature-bottom">
-            <span class="status-feature-badge">Phone-style Status</span>
-            <button class="status-open-btn" id="statusFeatureOpen" type="button">Open Status</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 
 <div class="status-modal" id="statusModal" aria-hidden="true"><div class="status-view"><div class="status-progress" id="statusProgress"></div><div class="status-topbar"><div class="mini-avatar">M</div><div><b>MINI Podcast</b><small id="statusViewerTime">Just now</small></div><button class="status-close" id="statusClose" aria-label="Close">×</button></div><div class="status-media" id="statusMedia"></div><div class="status-caption" id="statusCaption">MINI Podcast Status</div>
