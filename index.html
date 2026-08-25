@@ -29,10 +29,10 @@ nav{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filter:
 .status-topbar{position:absolute;left:16px;right:16px;top:28px;z-index:5;display:flex;align-items:center;gap:10px;color:#fff;text-shadow:0 1px 5px #000}.status-topbar .mini-avatar{width:38px;height:38px;border-radius:50%;background:#ed1c24;display:grid;place-items:center;font-weight:1000}.status-topbar b{font-size:14px}.status-topbar small{display:block;color:#ddd}.status-close{margin-left:auto;background:rgba(0,0,0,.35);border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}.status-media{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center;background:#000}.status-media img,.status-media video{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;background:#000}.status-tap{position:absolute;inset:0;display:grid;grid-template-columns:42% 58%;z-index:4}.status-tap button{background:transparent;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}.status-caption{position:absolute;left:20px;right:20px;bottom:24px;z-index:5;text-align:center;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;font-weight:700}.status-privacy{display:flex;gap:10px;align-items:flex-start;padding:16px 22px 22px;border-top:1px solid #202329;color:#8f979f;font-size:12px}.status-privacy b{color:#cfd4da}
 
 
-.status-speed{position:absolute;left:18px;bottom:78px;z-index:7;display:none;gap:7px;align-items:center}
+.status-speed{position:absolute;left:18px;bottom:78px;z-index:7;display:none;align-items:center}
 .status-speed.show{display:flex}
-.status-speed button{border:0;border-radius:999px;background:rgba(0,0,0,.48);backdrop-filter:blur(10px);color:#fff;padding:9px 11px;font-size:12px;font-weight:850;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.22)}
-.status-speed button.active{background:#fff;color:#111}
+.status-speed button{min-width:54px;border:0;border-radius:999px;background:rgba(0,0,0,.55);backdrop-filter:blur(10px);color:#fff;padding:10px 14px;font-size:13px;font-weight:900;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.22)}
+
 
 .status-actions{position:absolute;right:18px;bottom:78px;z-index:7;display:flex;flex-direction:column;gap:10px;align-items:center}
 .status-action-btn{min-width:48px;height:48px;border:0;border-radius:999px;background:rgba(0,0,0,.48);backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;justify-content:center;gap:5px;font-size:21px;font-weight:800;cursor:pointer;padding:0 12px;box-shadow:0 4px 18px rgba(0,0,0,.28)}
@@ -42,7 +42,7 @@ nav{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filter:
 .status-delete-btn.show{display:flex}
 .status-view.paused .status-actions{opacity:.96}
 
-@media(max-width:620px){.status-shell{border-radius:20px}.status-list{gap:16px;padding-left:16px;padding-right:16px}.status-head{padding:18px}.status-modal{padding:10px}.status-view{width:min(430px,calc(100vw - 16px));height:min(760px,calc(100dvh - 20px));border-radius:18px}}
+@media(max-width:620px){.status-shell{border-radius:22px}.status-list{gap:20px;padding:26px 18px 30px;min-height:170px}.status-head{padding:26px 20px 22px;align-items:flex-start;flex-direction:column}.status-modal{padding:10px}.status-view{width:min(430px,calc(100vw - 16px));height:min(760px,calc(100dvh - 20px));border-radius:18px}}
 footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.heart{color:var(--red)}
 @media(max-width:900px){.about-preview,.idea-box{grid-template-columns:1fr}.why{grid-template-columns:1fr 1fr}.why-card:nth-child(2){border-right:0}.why-card:nth-child(-n+2){border-bottom:1px solid var(--line)}.grid{grid-template-columns:1fr 1fr}.hero{min-height:650px;background-position:62% center}.hero-copy{max-width:56%}.about-copy{padding:34px}.host{min-height:560px}}
 @media(max-width:620px){.wrap{width:min(100% - 22px,var(--max))}.nav{gap:12px}.nav a{font-size:12px}.hero{min-height:620px;background-position:67% center}.hero:before{background:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.45) 58%,rgba(0,0,0,.18)),linear-gradient(0deg,rgba(7,7,7,.86),transparent 35%)}.hero-copy{max-width:72%;padding:58px 0}.mini{font-size:76px}.podcast{font-size:57px;margin-top:5px}.tagline{font-size:25px}.hero-sub{font-size:15px}.grid{grid-template-columns:1fr}.why{grid-template-columns:1fr}.why-card{border-right:0;border-bottom:1px solid var(--line)!important}.why-card:last-child{border-bottom:0!important}.row{grid-template-columns:1fr}.idea-box{padding:24px}.about-copy{padding:26px}.host{min-height:470px}.section{padding:54px 0}}
@@ -78,10 +78,7 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
 
 <div class="status-modal" id="statusModal" aria-hidden="true"><div class="status-view"><div class="status-progress" id="statusProgress"></div><div class="status-topbar"><div class="mini-avatar">M</div><div><b>MINI Podcast</b><small id="statusViewerTime">Just now</small></div><button class="status-close" id="statusClose" aria-label="Close">×</button></div><div class="status-media" id="statusMedia"></div><div class="status-caption" id="statusCaption">MINI Podcast Status</div>
 <div class="status-speed" id="statusSpeed">
-  <button type="button" data-speed="1" class="active">1×</button>
-  <button type="button" data-speed="1.25">1.25×</button>
-  <button type="button" data-speed="1.5">1.5×</button>
-  <button type="button" data-speed="2">2×</button>
+  <button type="button" id="statusSpeedBtn" aria-label="Change playback speed">1×</button>
 </div>
 <div class="status-actions" id="statusActions">
   <button class="status-action-btn" id="statusLikeBtn" type="button" aria-label="Like status">♡ <span id="statusLikeCount">0</span></button>
@@ -116,7 +113,7 @@ const STATUS_LIKE_ENDPOINT=SUPABASE_URL+'/functions/v1/status-like';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList'),statusEmpty=document.getElementById('statusEmpty');
-const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime'),statusLikeBtn=document.getElementById('statusLikeBtn'),statusLikeCount=document.getElementById('statusLikeCount'),statusDeleteBtn=document.getElementById('statusDeleteBtn'),statusSpeed=document.getElementById('statusSpeed'),statusSpeedButtons=[...document.querySelectorAll('#statusSpeed button')];
+const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime'),statusLikeBtn=document.getElementById('statusLikeBtn'),statusLikeCount=document.getElementById('statusLikeCount'),statusDeleteBtn=document.getElementById('statusDeleteBtn'),statusSpeed=document.getElementById('statusSpeed'),statusSpeedBtn=document.getElementById('statusSpeedBtn');
 let STATUS_ITEMS=[],statusIndex=0,statusTimer=null,statusPaused=false,statusStartedAt=0,statusRemaining=5000,statusHoldStarted=0,statusSuppressTap=false,statusPointerStartX=0,statusPointerStartY=0,statusPointerMoved=false,statusDragY=0;
 let STATUS_LIKES={},STATUS_LIKED=new Set(),statusPlaybackRate=1;
 const STATUS_VISITOR_ID=(()=>{let v=localStorage.getItem('miniStatusVisitorId');if(!v){v=(crypto.randomUUID?crypto.randomUUID():('visitor-'+Date.now()+'-'+Math.random().toString(36).slice(2)));localStorage.setItem('miniStatusVisitorId',v);}return v;})();
@@ -205,13 +202,25 @@ function updateSpeedControls(){
   const item=STATUS_ITEMS[statusIndex];
   const isVideo=!!item&&item.media_type==='video';
   statusSpeed.classList.toggle('show',isVideo);
-  statusSpeedButtons.forEach(b=>b.classList.toggle('active',Number(b.dataset.speed)===statusPlaybackRate));
+  statusSpeedBtn.textContent=statusPlaybackRate+'×';
   const v=statusMedia.querySelector('video');
   if(v)v.playbackRate=statusPlaybackRate;
 }
-function setStatusSpeed(rate){
-  statusPlaybackRate=Number(rate)||1;
+function cycleStatusSpeed(){
+  const speeds=[1,1.25,1.5,2];
+  const current=speeds.indexOf(statusPlaybackRate);
+  statusPlaybackRate=speeds[(current+1)%speeds.length];
   updateSpeedControls();
+  const v=statusMedia.querySelector('video');
+  if(v){
+    const active=statusProgress.querySelector('span.active i');
+    if(active && Number.isFinite(v.duration)){
+      const remaining=Math.max(0,v.duration-v.currentTime);
+      active.style.animation='none';
+      active.offsetHeight;
+      active.style.animation=`statusProgress ${remaining/statusPlaybackRate}s linear forwards`;
+    }
+  }
 }
 
 function updateStatusActions(){
@@ -302,20 +311,10 @@ statusUpload.addEventListener('change',async e=>{
     alert('Status upload failed: '+err.message);
   }finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
 });
-statusSpeedButtons.forEach(btn=>btn.addEventListener('click',e=>{
+statusSpeedBtn.addEventListener('click',e=>{
   e.stopPropagation();
-  setStatusSpeed(btn.dataset.speed);
-  const v=statusMedia.querySelector('video');
-  if(v){
-    const active=statusProgress.querySelector('span.active i');
-    if(active && Number.isFinite(v.duration)){
-      const remaining=Math.max(0,v.duration-v.currentTime);
-      active.style.animation='none';
-      active.offsetHeight;
-      active.style.animation=`statusProgress ${remaining/statusPlaybackRate}s linear forwards`;
-    }
-  }
-}));
+  cycleStatusSpeed();
+});
 statusLikeBtn.addEventListener('click',e=>{e.stopPropagation();toggleCurrentLike();});
 statusDeleteBtn.addEventListener('click',e=>{e.stopPropagation();deleteCurrentStatus();});
 statusClose.addEventListener('click',closeStatus);
