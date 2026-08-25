@@ -16,6 +16,18 @@ nav{position:sticky;top:0;z-index:30;background:rgba(7,7,7,.82);backdrop-filter:
 .why{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.why-card{text-align:center;padding:32px 22px;border-right:1px solid var(--line)}.why-card:last-child{border-right:0}.why-icon{font-size:40px;color:var(--red)}.why-card h3{font-size:19px;margin:12px 0 8px;text-transform:uppercase}.why-card p{color:var(--muted);margin:0}
 .episodes{background:#090a0d}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.video-card{border:1px solid var(--line);background:#111216;border-radius:20px;overflow:hidden;transition:.2s}.video-card:hover{transform:translateY(-4px);border-color:#4a4a52}.frame{aspect-ratio:16/9;background:#000}.frame iframe{width:100%;height:100%;border:0;display:block}.video-copy{padding:16px 18px 18px}.ep{color:var(--red);text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:1000}.video-copy h3{font-size:19px;line-height:1.2;margin:9px 0 0;letter-spacing:-.02em}
 .idea-box{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;border:1px solid var(--red);border-radius:24px;padding:34px;background:linear-gradient(135deg,rgba(243,19,37,.10),rgba(255,255,255,.025))}.idea-copy h2{font-size:clamp(34px,4vw,52px);line-height:1.02;margin:0}.idea-copy h2 span{color:var(--red)}.idea-copy p{color:var(--muted);font-size:17px}.idea-form{display:grid;gap:12px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.idea-form input,.idea-form textarea{width:100%;background:#0a0a0d;border:1px solid #35353b;color:#fff;border-radius:12px;padding:13px;outline:none}.idea-form input:focus,.idea-form textarea:focus{border-color:var(--red)}.note{font-size:12px;color:var(--muted)}
+
+/* WhatsApp-style Status */
+.status-section{background:#08090b;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.status-shell{max-width:720px;margin:0 auto;background:#0d0f12;border:1px solid #24272c;border-radius:28px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.32)}
+.status-head{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid #202329}.status-head h3{margin:0;font-size:24px}.status-head span{font-size:13px;color:#8f979f}.status-head button{white-space:nowrap}
+.status-list{display:flex;gap:20px;overflow-x:auto;padding:22px 22px 25px;scrollbar-width:none}.status-list::-webkit-scrollbar{display:none}
+.status-item{flex:0 0 86px;text-align:center;cursor:pointer}.status-ring{width:72px;height:72px;margin:0 auto 9px;padding:3px;border-radius:50%;background:conic-gradient(#25d366 0 85%,#394047 85% 100%);position:relative}.status-ring.empty{background:#353a40}.status-ring img,.status-ring video,.status-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #0d0f12;display:block;background:#1b1e22}.status-avatar{display:grid;place-items:center;font-weight:1000;font-size:23px;color:#fff;background:linear-gradient(145deg,#ed1c24,#6e0910)}
+.status-add{position:absolute;right:-1px;bottom:-1px;width:23px;height:23px;border-radius:50%;background:#25d366;color:#06160c;border:3px solid #0d0f12;display:grid;place-items:center;font-weight:1000;font-size:16px}.status-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.status-time{font-size:10px;color:#7f8790;margin-top:2px}.status-upload{display:none}
+.status-empty{padding:0 24px 24px;color:#7f8790;font-size:13px}.status-empty strong{color:#d7dbe0}
+.status-modal{position:fixed;inset:0;z-index:99990;background:#050607;display:none;align-items:center;justify-content:center}.status-modal.open{display:flex}.status-view{position:relative;width:min(440px,100%);height:min(780px,100vh);background:#000;overflow:hidden}.status-progress{position:absolute;left:10px;right:10px;top:12px;z-index:5;display:flex;gap:4px}.status-progress span{height:3px;flex:1;background:rgba(255,255,255,.35);border-radius:99px;overflow:hidden}.status-progress span i{display:block;height:100%;width:0;background:#fff}.status-progress span.done i{width:100%}.status-progress span.active i{animation:statusProgress 5s linear forwards}@keyframes statusProgress{from{width:0}to{width:100%}}
+.status-topbar{position:absolute;left:16px;right:16px;top:28px;z-index:5;display:flex;align-items:center;gap:10px;color:#fff;text-shadow:0 1px 5px #000}.status-topbar .mini-avatar{width:38px;height:38px;border-radius:50%;background:#ed1c24;display:grid;place-items:center;font-weight:1000}.status-topbar b{font-size:14px}.status-topbar small{display:block;color:#ddd}.status-close{margin-left:auto;background:rgba(0,0,0,.35);border:0;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}.status-media{width:100%;height:100%;display:grid;place-items:center;background:#000}.status-media img,.status-media video{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain}.status-tap{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;z-index:4}.status-tap button{background:transparent;border:0}.status-caption{position:absolute;left:20px;right:20px;bottom:30px;z-index:5;text-align:center;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);padding:10px 14px;border-radius:14px;font-weight:700}.status-privacy{display:flex;gap:10px;align-items:flex-start;padding:16px 22px 22px;border-top:1px solid #202329;color:#8f979f;font-size:12px}.status-privacy b{color:#cfd4da}
+@media(max-width:620px){.status-shell{border-radius:20px}.status-list{gap:16px;padding-left:16px;padding-right:16px}.status-view{width:100%;height:100vh}.status-head{padding:18px}}
 footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.heart{color:var(--red)}
 @media(max-width:900px){.about-preview,.idea-box{grid-template-columns:1fr}.why{grid-template-columns:1fr 1fr}.why-card:nth-child(2){border-right:0}.why-card:nth-child(-n+2){border-bottom:1px solid var(--line)}.grid{grid-template-columns:1fr 1fr}.hero{min-height:650px;background-position:62% center}.hero-copy{max-width:56%}.about-copy{padding:34px}.host{min-height:560px}}
 @media(max-width:620px){.wrap{width:min(100% - 22px,var(--max))}.nav{gap:12px}.nav a{font-size:12px}.hero{min-height:620px;background-position:67% center}.hero:before{background:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.45) 58%,rgba(0,0,0,.18)),linear-gradient(0deg,rgba(7,7,7,.86),transparent 35%)}.hero-copy{max-width:72%;padding:58px 0}.mini{font-size:76px}.podcast{font-size:57px;margin-top:5px}.tagline{font-size:25px}.hero-sub{font-size:15px}.grid{grid-template-columns:1fr}.why{grid-template-columns:1fr}.why-card{border-right:0;border-bottom:1px solid var(--line)!important}.why-card:last-child{border-bottom:0!important}.row{grid-template-columns:1fr}.idea-box{padding:24px}.about-copy{padding:26px}.host{min-height:470px}.section{padding:54px 0}}
@@ -36,15 +48,20 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
 })();
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-<nav><div class="wrap nav"><a href="#episodes">Episodes</a><a href="about.html">About</a><a class="pill" href="#idea">Send an Idea</a></div></nav>
+<nav><div class="wrap nav"><a href="#status">Status</a><a href="#episodes">Episodes</a><a href="about.html">About</a><a class="pill" href="#idea">Send an Idea</a></div></nav>
 <header class="hero"><div class="wrap"><div class="hero-copy"><div class="mini">MINI</div><div class="podcast">Podcast</div><div class="rule"></div><div class="tagline">Big ideas.<br>Short time.<strong>Real impact.</strong></div><p class="hero-sub">Powerful ideas, practical insights and timeless wisdom — explained in a short, engaging format.</p><div class="hero-links"><a class="btn btn-red" href="#episodes">Watch Episodes</a><a class="btn btn-dark" href="about.html">About MINI</a></div></div></div></header>
 
 <section class="section"><div class="wrap"><div class="about-preview"><div class="host"><img src="host.jpeg" alt="Mini Podcast host"></div><div class="about-copy"><div class="script">About MINI Podcast</div><p>MINI Podcast brings you powerful conversations, practical insights, and timeless wisdom — all in a short, engaging format.</p><div class="traits"><div class="trait"><div class="icon">🎙</div><div><b>REAL TALKS.</b><span>No fluff.</span></div></div><div class="trait"><div class="icon">◴</div><div><b>SHORT &amp; FOCUSED.</b><span>Respecting your time.</span></div></div><div class="trait"><div class="icon">◎</div><div><b>PURPOSE DRIVEN.</b><span>Ideas you can use.</span></div></div></div><div style="margin-top:26px"><a class="btn btn-dark" href="about.html">Meet MINI Podcast →</a></div></div></div></div></section>
 
 <section class="section" style="padding-top:18px"><div class="wrap"><div class="section-title"><h2>WHY <span>MINI?</span></h2></div><div class="why"><div class="why-card"><div class="why-icon">💡</div><h3>Insightful</h3><p>Big ideas explained in a simple way.</p></div><div class="why-card"><div class="why-icon">🎧</div><h3>Engaging</h3><p>Conversations that keep you listening.</p></div><div class="why-card"><div class="why-icon">◷</div><h3>Convenient</h3><p>Perfect for your drive, workout, or break.</p></div><div class="why-card"><div class="why-icon">↗</div><h3>Impactful</h3><p>Leave every episode better than before.</p></div></div></div></section>
 
+
+<section class="section status-section" id="status"><div class="wrap"><div class="section-title"><h2>MINI <span>Status</span></h2><p>Quick updates, behind-the-scenes moments, ideas, and previews — in a familiar status-style experience.</p></div><div class="status-shell"><div class="status-head"><h3>Updates</h3><button id="statusAdminBtn" class="btn btn-dark" type="button" style="padding:9px 13px;font-size:12px">🔒 Admin Upload</button></div><div class="status-list" id="statusList"></div><input class="status-upload" id="statusUpload" type="file" accept="image/*,video/*"><div class="status-empty" id="statusEmpty"><strong>No status updates right now.</strong> Check back soon.</div><div class="status-privacy"><span>🔒</span><div><b>Everyone can view.</b> Uploading is protected by a private admin password and handled securely through the Mini Podcast backend.</div></div></div></div></section>
+
+<div class="status-modal" id="statusModal" aria-hidden="true"><div class="status-view"><div class="status-progress" id="statusProgress"></div><div class="status-topbar"><div class="mini-avatar">M</div><div><b>MINI Podcast</b><small id="statusViewerTime">Just now</small></div><button class="status-close" id="statusClose" aria-label="Close">×</button></div><div class="status-media" id="statusMedia"></div><div class="status-caption" id="statusCaption">MINI Podcast Status</div><div class="status-tap"><button id="statusPrev" aria-label="Previous status"></button><button id="statusNext" aria-label="Next status"></button></div></div></div>
 <section class="section episodes" id="episodes"><div class="wrap"><div class="section-title"><h2>Watch Every <span>Episode</span></h2><p>Every video plays right here on the Mini Podcast website.</p></div><div class="grid" id="episodeGrid"></div></div></section>
 
 <section class="section" id="idea"><div class="wrap"><div class="idea-box"><div class="idea-copy"><h2>Have an <span>idea</span> for the next episode?</h2><p>We’d love to hear it. Your suggestion might become the next topic on MINI Podcast.</p><p><strong>mosheminipodcast@gmail.com</strong></p></div><form class="idea-form" id="ideaForm"><div class="row"><input id="ideaName" placeholder="Your name (optional)"><input id="ideaEmail" type="email" placeholder="Your email (optional)"></div><textarea id="ideaTopic" rows="4" placeholder="What should MINI Podcast talk about next?" required></textarea><textarea id="ideaWhy" rows="3" placeholder="Why this topic? (optional)"></textarea><button class="btn btn-red" type="submit">Send Your Idea →</button><div class="note" id="formNote">This opens your email app with the idea ready to send.</div></form></div></div></section>
@@ -64,6 +81,97 @@ const EPISODES=[
 const grid=document.getElementById('episodeGrid');
 const esc=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 EPISODES.forEach((e,i)=>{const a=document.createElement('article');a.className='video-card';a.innerHTML=`<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${e.id}?rel=0&playsinline=1" title="${esc(e.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="video-copy"><div class="ep">Episode ${i+1}</div><h3>${esc(e.title)}</h3></div>`;grid.appendChild(a)});
+
+// Shared MINI Status viewer + private admin upload
+const SUPABASE_URL='https://iodnvbddyicyyayucbyu.supabase.co';
+const SUPABASE_KEY='sb_publishable_5iJXj1-UvziDEMtRjn7iag_FR1cvGT7';
+const STATUS_UPLOAD_ENDPOINT=SUPABASE_URL+'/functions/v1/status-admin-upload';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList'),statusEmpty=document.getElementById('statusEmpty');
+const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime');
+let STATUS_ITEMS=[],statusIndex=0,statusTimer=null;
+
+function timeAgo(iso){
+  const mins=Math.max(0,Math.floor((Date.now()-new Date(iso).getTime())/60000));
+  if(mins<1)return 'Just now'; if(mins<60)return mins+'m ago';
+  const h=Math.floor(mins/60); return h<24?h+'h ago':'1d ago';
+}
+function statusThumb(item){return item.media_type==='video'?`<video src="${item.media_url}" muted playsinline preload="metadata"></video>`:`<img src="${item.media_url}" alt="MINI Status">`;}
+function renderStatuses(){
+  statusList.innerHTML='';
+  STATUS_ITEMS.forEach((item,i)=>{
+    const el=document.createElement('button');
+    el.type='button'; el.className='status-item uploaded-status'; el.style.background='none'; el.style.border='0'; el.style.color='inherit'; el.style.padding='0';
+    el.innerHTML=`<div class="status-ring">${statusThumb(item)}</div><div class="status-name">MINI Status</div><div class="status-time">${timeAgo(item.created_at)}</div>`;
+    el.addEventListener('click',()=>openStatus(i)); statusList.appendChild(el);
+  });
+  statusEmpty.style.display=STATUS_ITEMS.length?'none':'block';
+}
+async function loadStatuses(){
+  const {data,error}=await sb.from('statuses').select('*').gt('expires_at',new Date().toISOString()).order('created_at',{ascending:true});
+  if(error){console.error('Status load failed',error);return;}
+  STATUS_ITEMS=data||[]; renderStatuses();
+}
+function openStatus(i){if(!STATUS_ITEMS.length)return;statusIndex=(i+STATUS_ITEMS.length)%STATUS_ITEMS.length;statusModal.classList.add('open');statusModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';showStatus();}
+function closeStatus(){statusModal.classList.remove('open');statusModal.setAttribute('aria-hidden','true');document.body.style.overflow='';clearTimeout(statusTimer);const v=statusMedia.querySelector('video');if(v)v.pause();}
+function showStatus(){
+  clearTimeout(statusTimer); const item=STATUS_ITEMS[statusIndex];
+  statusProgress.innerHTML=STATUS_ITEMS.map((_,i)=>`<span class="${i<statusIndex?'done':i===statusIndex?'active':''}"><i></i></span>`).join('');
+  statusMedia.innerHTML=item.media_type==='video'?`<video src="${item.media_url}" autoplay playsinline controls></video>`:`<img src="${item.media_url}" alt="MINI Podcast status">`;
+  statusViewerTime.textContent=timeAgo(item.created_at); statusCaption.textContent=item.caption||'MINI Podcast Status';
+  const v=statusMedia.querySelector('video'); if(v){v.onended=()=>nextStatus();}else statusTimer=setTimeout(nextStatus,5000);
+}
+function nextStatus(){if(statusIndex>=STATUS_ITEMS.length-1){closeStatus();return;}statusIndex++;showStatus();}
+function prevStatus(){if(statusIndex<=0){showStatus();return;}statusIndex--;showStatus();}
+
+async function verifyAdmin(password){
+  const r=await fetch(STATUS_UPLOAD_ENDPOINT,{method:'POST',headers:{'x-admin-password':password,'x-check-only':'1'}});
+  return r.ok;
+}
+statusAdminBtn.addEventListener('click',async()=>{
+  let password=sessionStorage.getItem('miniStatusAdminPassword')||'';
+  if(!password){
+    password=prompt('Enter the private MINI Status admin password:')||'';
+    if(!password)return;
+  }
+  statusAdminBtn.disabled=true; statusAdminBtn.textContent='Checking…';
+  try{
+    if(!(await verifyAdmin(password))){
+      sessionStorage.removeItem('miniStatusAdminPassword');
+      alert('Incorrect admin password.');
+      return;
+    }
+    sessionStorage.setItem('miniStatusAdminPassword',password);
+    statusUpload.click();
+  }catch(err){console.error(err);alert('Could not verify admin access. Please try again.');}
+  finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
+});
+statusUpload.addEventListener('change',async e=>{
+  const file=e.target.files&&e.target.files[0]; e.target.value=''; if(!file)return;
+  const password=sessionStorage.getItem('miniStatusAdminPassword')||'';
+  if(!password){alert('Admin access expired. Tap Admin Upload again.');return;}
+  const caption=prompt('Add a caption? (optional)')||'';
+  const form=new FormData(); form.append('file',file); form.append('caption',caption);
+  statusAdminBtn.disabled=true; statusAdminBtn.textContent='Uploading…';
+  try{
+    const r=await fetch(STATUS_UPLOAD_ENDPOINT,{method:'POST',headers:{'x-admin-password':password},body:form});
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(data.error||'Upload failed');
+    await loadStatuses(); alert('Status published. Everyone can see it now.');
+  }catch(err){
+    console.error(err);
+    if(String(err.message).toLowerCase().includes('unauthorized'))sessionStorage.removeItem('miniStatusAdminPassword');
+    alert('Status upload failed: '+err.message);
+  }finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
+});
+statusClose.addEventListener('click',closeStatus);statusNext.addEventListener('click',nextStatus);statusPrev.addEventListener('click',prevStatus);
+document.addEventListener('keydown',e=>{if(!statusModal.classList.contains('open'))return;if(e.key==='Escape')closeStatus();if(e.key==='ArrowRight')nextStatus();if(e.key==='ArrowLeft')prevStatus();});
+loadStatuses();
+
 document.getElementById('ideaForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('ideaName').value.trim(),email=document.getElementById('ideaEmail').value.trim(),topic=document.getElementById('ideaTopic').value.trim(),why=document.getElementById('ideaWhy').value.trim();const subject=encodeURIComponent('Mini Podcast Topic Idea: '+topic);const body=encodeURIComponent('Topic idea: '+topic+'\n\nWhy this topic: '+(why||'Not provided')+'\n\nSubmitted by: '+(name||'Anonymous')+'\nEmail: '+(email||'Not provided'));location.href='mailto:mosheminipodcast@gmail.com?subject='+subject+'&body='+body;document.getElementById('formNote').textContent='Your email app should open with the idea ready to send.'});
 </script>
+
+
+
 </body></html>
