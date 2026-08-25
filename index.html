@@ -253,18 +253,6 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
 .status-latest-actions{
   margin-top:16px;display:flex;gap:10px;flex-wrap:wrap
 }
-.status-side{display:none;
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:24px;
-  background:#0b0f14;
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  gap:24px
-}
-.status-side h3{font-size:24px;margin:0}
-.status-side p{color:var(--muted);margin:8px 0 0}
 .status-row-wrap{
   border-top:1px solid rgba(255,255,255,.06);
   padding-top:22px
@@ -300,12 +288,29 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
   .status-head p{font-size:16px}
   .status-body{padding:22px 18px 28px}
   .status-latest{min-height:320px}
-  .status-side{display:none;padding:20px}
-  .status-ring{width:80px;height:80px}
+    .status-ring{width:80px;height:80px}
 }
 
 
-body.status-admin-mode .status-side{display:flex}
+body.status-admin-mode 
+.status-topline{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.status-admin-inline{display:flex;align-items:center}.status-admin-top{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.045);
+  color:#dfe5ed;
+  border-radius:999px;
+  padding:7px 11px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:850;
+  cursor:pointer;
+}
+.status-admin-top:hover{background:rgba(255,255,255,.08)}
+.status-admin-top span{opacity:.82}
+@media(max-width:520px){.status-admin-top span{display:none}.status-admin-inline{display:flex;align-items:center}.status-admin-top{width:34px;height:34px;padding:0;justify-content:center}}
+
 </style>
 
 <style id="password-gate-style">
@@ -313,15 +318,6 @@ body.status-admin-mode .status-side{display:flex}
 </style>
 <script>
 
-if(new URLSearchParams(location.search).get('admin')==='1'){
-  document.body.classList.add('status-admin-mode');
-}
-(function(){
-  if(sessionStorage.getItem('miniPodcastAccess')==='yes') return;
-  if(statusFeatureOpen)statusFeatureOpen.addEventListener('click',()=>{
-  if(!STATUS_ITEMS.length)return;
-  openStatus(STATUS_ITEMS.length-1);
-});
 document.addEventListener('DOMContentLoaded',function(){
     var gate=document.createElement('div'); gate.id='passwordGate';
     gate.innerHTML='<div class="gate-box"><h1>MINI Podcast</h1><p>Enter the password to continue.</p><form id="passwordGateForm"><input id="passwordGateInput" type="password" placeholder="Password" autocomplete="current-password" autofocus><button type="submit">Enter Website</button><div class="gate-error" id="passwordGateError"></div></form></div>';
@@ -341,7 +337,10 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="wrap">
     <div class="status-shell">
       <div class="status-head">
-        <div class="status-kicker">Fresh from MINI</div>
+        <div class="status-topline">
+          <div class="status-kicker">Fresh from MINI</div>
+          <div class="status-admin-inline"><button class="status-admin-top" id="statusAdminBtn" type="button" aria-label="Admin upload" title="Admin upload">🔒 <span>Upload</span></button><input id="statusUpload" type="file" accept="image/*,video/*" hidden></div>
+        </div>
         <h2>Quick updates. Right here.</h2>
         <p>See the newest Mini Podcast updates, behind-the-scenes moments, quick thoughts, and episode drops — without leaving the homepage.</p>
       </div>
@@ -349,12 +348,7 @@ document.addEventListener('DOMContentLoaded',function(){
       <div class="status-body">
         <div class="status-primary">
           <div class="status-latest" id="statusFeature">
-            <div class="status-latest-empty" id="statusFeaturePlaceholder">
-              <div>
-                <strong>Your latest status lives here.</strong>
-                <p>This space stays on the homepage permanently, so visitors always have a place to see the newest update.</p>
-              </div>
-            </div>
+            <div class="status-latest-empty" id="statusFeaturePlaceholder"></div>
             <div class="status-latest-media status-feature-preview" id="statusFeaturePreview"></div>
             <div class="status-latest-shade"></div>
             <div class="status-latest-copy">
@@ -363,17 +357,6 @@ document.addEventListener('DOMContentLoaded',function(){
               <div class="status-latest-actions">
                 <button class="btn btn-primary" id="statusFeatureOpen" type="button">View Status</button>
               </div>
-            </div>
-          </div>
-
-          <div class="status-side">
-            <div>
-              <h3>Post something new</h3>
-              <p>Share a quick photo or video update with everyone visiting the site.</p>
-            </div>
-            <div>
-              <button class="btn btn-primary" id="statusAdminBtn" type="button">🔒 Admin Upload</button>
-              <input id="statusUpload" type="file" accept="image/*,video/*" hidden>
             </div>
           </div>
         </div>
@@ -439,7 +422,7 @@ const STATUS_UPLOAD_ENDPOINT=SUPABASE_URL+'/functions/v1/status-admin-upload';
 const STATUS_LIKE_ENDPOINT=SUPABASE_URL+'/functions/v1/status-like';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList'),statusEmpty=document.getElementById('statusEmpty');
+const statusUpload=document.getElementById('statusUpload'),statusAdminBtn=document.getElementById('statusAdminBtn'),statusList=document.getElementById('statusList');
 const statusModal=document.getElementById('statusModal'),statusMedia=document.getElementById('statusMedia'),statusProgress=document.getElementById('statusProgress'),statusClose=document.getElementById('statusClose'),statusPrev=document.getElementById('statusPrev'),statusNext=document.getElementById('statusNext'),statusCaption=document.getElementById('statusCaption'),statusViewerTime=document.getElementById('statusViewerTime'),statusLikeBtn=document.getElementById('statusLikeBtn'),statusLikeCount=document.getElementById('statusLikeCount'),statusDeleteBtn=document.getElementById('statusDeleteBtn'),statusSpeed=document.getElementById('statusSpeed'),statusSpeedBtn=document.getElementById('statusSpeedBtn');
 
 const statusFeaturePreview=document.getElementById('statusFeaturePreview');
@@ -461,7 +444,9 @@ function statusThumb(item){return item.media_type==='video'?`<video src="${item.
 function renderStatusFeature(){
   const item=STATUS_ITEMS.length?STATUS_ITEMS[STATUS_ITEMS.length-1]:null;
   if(!statusFeaturePreview||!statusFeaturePlaceholder)return;
+  const feature=document.getElementById('statusFeature');
   if(!item){
+    if(feature)feature.style.display='none';
     statusFeaturePreview.classList.remove('active');
     statusFeaturePreview.innerHTML='';
     statusFeaturePlaceholder.style.display='grid';
@@ -469,6 +454,7 @@ function renderStatusFeature(){
     statusFeatureType.textContent='Latest';
     return;
   }
+  if(feature)feature.style.display='block';
   statusFeaturePlaceholder.style.display='none';
   statusFeaturePreview.classList.add('active');
   statusFeaturePreview.innerHTML=item.media_type==='video'
@@ -486,7 +472,6 @@ function renderStatuses(){
     el.innerHTML=`<div class="status-ring">${statusThumb(item)}</div><div class="status-name">${timeAgo(item.created_at)}</div>`;
     el.addEventListener('click',()=>openStatus(i)); statusList.appendChild(el);
   });
-  statusEmpty.style.display=STATUS_ITEMS.length?'none':'block';
 }
 async function loadLikeState(){
   if(!STATUS_ITEMS.length){STATUS_LIKES={};STATUS_LIKED=new Set();return;}
@@ -645,7 +630,7 @@ statusAdminBtn.addEventListener('click',async()=>{
     updateStatusActions();
     statusUpload.click();
   }catch(err){console.error(err);alert('Could not verify admin access. Please try again.');}
-  finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
+  finally{statusAdminBtn.disabled=false;statusAdminBtn.innerHTML='🔒 <span>Upload</span>';}
 });
 statusUpload.addEventListener('change',async e=>{
   const file=e.target.files&&e.target.files[0]; e.target.value=''; if(!file)return;
@@ -663,7 +648,7 @@ statusUpload.addEventListener('change',async e=>{
     console.error(err);
     if(String(err.message).toLowerCase().includes('unauthorized'))sessionStorage.removeItem('miniStatusAdminPassword');
     alert('Status upload failed: '+err.message);
-  }finally{statusAdminBtn.disabled=false;statusAdminBtn.textContent='🔒 Admin Upload';}
+  }finally{statusAdminBtn.disabled=false;statusAdminBtn.innerHTML='🔒 <span>Upload</span>';}
 });
 statusSpeedBtn.addEventListener('click',e=>{
   e.stopPropagation();
