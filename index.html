@@ -253,7 +253,7 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
 .status-latest-actions{
   margin-top:16px;display:flex;gap:10px;flex-wrap:wrap
 }
-.status-side{
+.status-side{display:none;
   border:1px solid rgba(255,255,255,.07);
   border-radius:24px;
   background:#0b0f14;
@@ -300,16 +300,22 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
   .status-head p{font-size:16px}
   .status-body{padding:22px 18px 28px}
   .status-latest{min-height:320px}
-  .status-side{padding:20px}
+  .status-side{display:none;padding:20px}
   .status-ring{width:80px;height:80px}
 }
 
+
+body.status-admin-mode .status-side{display:flex}
 </style>
 
 <style id="password-gate-style">
 #passwordGate{position:fixed;inset:0;z-index:999999;background:#050506;display:flex;align-items:center;justify-content:center;padding:24px;font-family:Arial,sans-serif;color:#fff}#passwordGate .gate-box{width:min(430px,100%);text-align:center;background:#0c0c0e;border:1px solid #29292e;border-radius:24px;padding:38px 28px;box-shadow:0 24px 80px rgba(0,0,0,.55)}#passwordGate h1{font-size:34px;margin:0 0 10px}#passwordGate p{color:#aaa;margin:0 0 24px}#passwordGate input{box-sizing:border-box;width:100%;padding:15px 16px;border-radius:12px;border:1px solid #34343a;background:#141417;color:#fff;font-size:17px;outline:none}#passwordGate button{width:100%;margin-top:12px;padding:15px;border:0;border-radius:12px;background:#ed1c24;color:#fff;font-weight:800;font-size:16px;cursor:pointer}#passwordGate .gate-error{height:20px;margin-top:12px;color:#ff5a60;font-size:14px}
 </style>
 <script>
+
+if(new URLSearchParams(location.search).get('admin')==='1'){
+  document.body.classList.add('status-admin-mode');
+}
 (function(){
   if(sessionStorage.getItem('miniPodcastAccess')==='yes') return;
   if(statusFeatureOpen)statusFeatureOpen.addEventListener('click',()=>{
@@ -331,20 +337,13 @@ document.addEventListener('DOMContentLoaded',function(){
 <nav><div class="wrap nav"><a href="#status">Status</a><a href="#episodes">Episodes</a><a href="about.html">About</a><a class="pill" href="#idea">Send an Idea</a></div></nav>
 <header class="hero"><div class="wrap"><div class="hero-copy"><div class="mini">MINI</div><div class="podcast">Podcast</div><div class="rule"></div><div class="tagline">Big ideas.<br>Short time.<strong>Real impact.</strong></div><p class="hero-sub">Powerful ideas, practical insights and timeless wisdom — explained in a short, engaging format.</p><div class="hero-links"><a class="btn btn-red" href="#episodes">Watch Episodes</a><a class="btn btn-dark" href="about.html">About MINI</a></div></div></div></header>
 
-<section class="section"><div class="wrap"><div class="about-preview"><div class="host"><img src="host.jpeg" alt="Mini Podcast host"></div><div class="about-copy"><div class="script">About MINI Podcast</div><p>MINI Podcast brings you powerful conversations, practical insights, and timeless wisdom — all in a short, engaging format.</p><div class="traits"><div class="trait"><div class="icon">🎙</div><div><b>REAL TALKS.</b><span>No fluff.</span></div></div><div class="trait"><div class="icon">◴</div><div><b>SHORT &amp; FOCUSED.</b><span>Respecting your time.</span></div></div><div class="trait"><div class="icon">◎</div><div><b>PURPOSE DRIVEN.</b><span>Ideas you can use.</span></div></div></div><div style="margin-top:26px"><a class="btn btn-dark" href="about.html">Meet MINI Podcast →</a></div></div></div></div></section>
-
-<section class="section" style="padding-top:18px"><div class="wrap"><div class="section-title"><h2>WHY <span>MINI?</span></h2></div><div class="why"><div class="why-card"><div class="why-icon">💡</div><h3>Insightful</h3><p>Big ideas explained in a simple way.</p></div><div class="why-card"><div class="why-icon">🎧</div><h3>Engaging</h3><p>Conversations that keep you listening.</p></div><div class="why-card"><div class="why-icon">◷</div><h3>Convenient</h3><p>Perfect for your drive, workout, or break.</p></div><div class="why-card"><div class="why-icon">↗</div><h3>Impactful</h3><p>Leave every episode better than before.</p></div></div></div></section>
-
-
-
-
 <section id="status">
   <div class="wrap">
     <div class="status-shell">
       <div class="status-head">
-        <div class="status-kicker">MINI Status</div>
-        <h2>What’s happening between episodes.</h2>
-        <p>Short updates, behind-the-scenes moments, new episode drops, quick thoughts, and anything worth sharing before the next Mini Podcast goes live.</p>
+        <div class="status-kicker">Fresh from MINI</div>
+        <h2>Quick updates. Right here.</h2>
+        <p>See the newest Mini Podcast updates, behind-the-scenes moments, quick thoughts, and episode drops — without leaving the homepage.</p>
       </div>
 
       <div class="status-body">
@@ -384,18 +383,23 @@ document.addEventListener('DOMContentLoaded',function(){
             <strong>Recent statuses</strong>
           </div>
           <div class="status-list status-row" id="statusList">
-            <button class="status-item my-status" id="myStatusBtn" type="button">
-              <span class="status-ring">
-                <span class="status-avatar"><span class="status-plus">+</span></span>
-              </span>
-              <span class="status-label">My status</span>
-            </button>
+            
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
+<section class="section"><div class="wrap"><div class="about-preview"><div class="host"><img src="host.jpeg" alt="Mini Podcast host"></div><div class="about-copy"><div class="script">About MINI Podcast</div><p>MINI Podcast brings you powerful conversations, practical insights, and timeless wisdom — all in a short, engaging format.</p><div class="traits"><div class="trait"><div class="icon">🎙</div><div><b>REAL TALKS.</b><span>No fluff.</span></div></div><div class="trait"><div class="icon">◴</div><div><b>SHORT &amp; FOCUSED.</b><span>Respecting your time.</span></div></div><div class="trait"><div class="icon">◎</div><div><b>PURPOSE DRIVEN.</b><span>Ideas you can use.</span></div></div></div><div style="margin-top:26px"><a class="btn btn-dark" href="about.html">Meet MINI Podcast →</a></div></div></div></div></section>
+
+<section class="section" style="padding-top:18px"><div class="wrap"><div class="section-title"><h2>WHY <span>MINI?</span></h2></div><div class="why"><div class="why-card"><div class="why-icon">💡</div><h3>Insightful</h3><p>Big ideas explained in a simple way.</p></div><div class="why-card"><div class="why-icon">🎧</div><h3>Engaging</h3><p>Conversations that keep you listening.</p></div><div class="why-card"><div class="why-icon">◷</div><h3>Convenient</h3><p>Perfect for your drive, workout, or break.</p></div><div class="why-card"><div class="why-icon">↗</div><h3>Impactful</h3><p>Leave every episode better than before.</p></div></div></div></section>
+
+
+
+
+
 
 
 
@@ -462,7 +466,7 @@ function renderStatusFeature(){
     statusFeaturePreview.innerHTML='';
     statusFeaturePlaceholder.style.display='grid';
     statusFeatureTime.textContent='No status yet';
-    statusFeatureType.textContent='Status';
+    statusFeatureType.textContent='Latest';
     return;
   }
   statusFeaturePlaceholder.style.display='none';
@@ -471,7 +475,7 @@ function renderStatusFeature(){
     ? `<video src="${item.media_url}" muted playsinline preload="metadata"></video>`
     : `<img src="${item.media_url}" alt="Latest MINI Status">`;
   statusFeatureTime.textContent=timeAgo(item.created_at);
-  statusFeatureType.textContent=item.media_type==='video'?'Video':'Photo';
+  statusFeatureType.textContent=timeAgo(item.created_at);
 }
 
 function renderStatuses(){
@@ -479,7 +483,7 @@ function renderStatuses(){
   STATUS_ITEMS.forEach((item,i)=>{
     const el=document.createElement('button');
     el.type='button'; el.className='status-item uploaded-status'; el.style.background='none'; el.style.border='0'; el.style.color='inherit'; el.style.padding='0';
-    el.innerHTML=`<div class="status-ring">${statusThumb(item)}</div><div class="status-name">MINI Status</div><div class="status-time">${timeAgo(item.created_at)}</div>`;
+    el.innerHTML=`<div class="status-ring">${statusThumb(item)}</div><div class="status-name">${timeAgo(item.created_at)}</div>`;
     el.addEventListener('click',()=>openStatus(i)); statusList.appendChild(el);
   });
   statusEmpty.style.display=STATUS_ITEMS.length?'none':'block';
