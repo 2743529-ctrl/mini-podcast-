@@ -265,7 +265,7 @@ footer{padding:30px 0 42px;border-top:1px solid var(--line);color:var(--muted)}.
   display:flex;gap:22px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none
 }
 .status-list::-webkit-scrollbar{display:none}
-.status-item{min-width:96px;display:flex;flex-direction:column;align-items:center;gap:9px}
+.status-item{min-width:96px;display:flex;flex-direction:column;align-items:center;gap:9px;scroll-snap-align:start}
 .status-ring{
   width:88px;height:88px;border-radius:50%;padding:3px;
   background:linear-gradient(135deg,#25d366,#5be884)
@@ -311,6 +311,9 @@ body.status-admin-mode
 .status-admin-top span{opacity:.82}
 @media(max-width:520px){.status-admin-top span{display:none}.status-admin-inline{display:flex;align-items:center}.status-admin-top{width:34px;height:34px;padding:0;justify-content:center}}
 
+
+.status-list.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.status-list.dragging *{pointer-events:none}
 </style>
 
 <style id="password-gate-style">
@@ -409,24 +412,13 @@ const EPISODES=[
 {provider:'bunny',library:'736827',id:'3e61c969-719b-4df5-bea0-9fb0db358019',title:'How to Buy & Sell Stocks'},
 {provider:'bunny',library:'736827',id:'939cafe0-c3c5-427e-a337-da1289b6d8e2',title:'ETF'},
 {provider:'bunny',library:'736827',id:'30ae39d1-efe8-44b4-b727-6c491a8a44bd',title:'Morality'},
-{provider:'bunny',library:'736827',id:'2c8d08cc-f562-4374-be87-e64df90ffd02',title:'Happiness'},
-{provider:'youtube',id:'pP8quwhUhos',title:'Financial Freedom Explained: How to Make Money Work for You'},
-{provider:'youtube',id:'jHY6yM_c11c',title:'IPO Explained Simply: How Companies Go Public & Who Gets the Money?'},
-{provider:'youtube',id:'DOfZ-y26YQY',title:'Inflation Explained Simply: Why Everything Keeps Getting More Expensive'},
-{provider:'youtube',id:'Wo2XhzTGC0c',title:'Gerrymandering Explained Simply: How Politicians Choose Their Voters'},
-{provider:'youtube',id:'zKKU5GQlIGg',title:'Why Do We Help Others? The Psychology Behind Human Kindness'},
-{provider:'youtube',id:'qg9xjoFfw9Q',title:'How Buying & Selling Stocks Actually Works | Stock Market Explained Ep. 2'},
-{provider:'youtube',id:'dOtCpbm658k',title:'The Stock Market Explained Simply | Episode 1: How It All Works'},
-{provider:'youtube',id:'T7zOLhxfUes',title:'ETFs Explained Simply | Stock Market Explained – Episode 3'},
-{provider:'youtube',id:'pWurXcSnUY8',title:'NFTs Explained Simply: What They Are, How They Work & Why They Matter'}];
+{provider:'bunny',library:'736827',id:'2c8d08cc-f562-4374-be87-e64df90ffd02',title:'Happiness'}];
 const grid=document.getElementById('episodeGrid');
 const esc=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 EPISODES.forEach((e,i)=>{
   const a=document.createElement('article');
   a.className='video-card';
-  const player=e.provider==='bunny'
-    ? `https://player.mediadelivery.net/embed/${e.library}/${e.id}?autoplay=false&loop=false&muted=false&preload=true&responsive=true`
-    : `https://www.youtube-nocookie.com/embed/${e.id}?rel=0&playsinline=1`;
+  const player=`https://player.mediadelivery.net/embed/${e.library}/${e.id}?autoplay=false&loop=false&muted=false&preload=true&responsive=true`;
   const label=e.isNew?'NEW EPISODE':`Episode ${EPISODES.length-i}`;
   a.innerHTML=`<div class="frame"><iframe src="${player}" title="${esc(e.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><div class="video-copy"><div class="ep">${label}</div><h3>${esc(e.title)}</h3></div>`;
   grid.appendChild(a);
@@ -736,6 +728,36 @@ document.addEventListener('keydown',e=>{if(!statusModal.classList.contains('open
 loadStatuses();
 
 document.getElementById('ideaForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('ideaName').value.trim(),email=document.getElementById('ideaEmail').value.trim(),topic=document.getElementById('ideaTopic').value.trim(),why=document.getElementById('ideaWhy').value.trim();const subject=encodeURIComponent('Mini Podcast Topic Idea: '+topic);const body=encodeURIComponent('Topic idea: '+topic+'\n\nWhy this topic: '+(why||'Not provided')+'\n\nSubmitted by: '+(name||'Anonymous')+'\nEmail: '+(email||'Not provided'));location.href='mailto:mosheminipodcast@gmail.com?subject='+subject+'&body='+body;document.getElementById('formNote').textContent='Your email app should open with the idea ready to send.'});
+
+const statusStrip=document.getElementById('statusList');
+if(statusStrip){
+  let stripDown=false,stripStartX=0,stripStartScroll=0,stripMoved=false;
+  statusStrip.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='mouse' && e.button!==0)return;
+    stripDown=true;stripMoved=false;stripStartX=e.clientX;stripStartScroll=statusStrip.scrollLeft;
+    statusStrip.classList.add('dragging');
+    try{statusStrip.setPointerCapture(e.pointerId)}catch(_){}
+  });
+  statusStrip.addEventListener('pointermove',e=>{
+    if(!stripDown)return;
+    const dx=e.clientX-stripStartX;
+    if(Math.abs(dx)>6)stripMoved=true;
+    statusStrip.scrollLeft=stripStartScroll-dx;
+  });
+  const endStripSwipe=e=>{
+    if(!stripDown)return;
+    stripDown=false;statusStrip.classList.remove('dragging');
+    if(stripMoved){
+      const width=96+22;
+      const target=Math.round(statusStrip.scrollLeft/width)*width;
+      statusStrip.scrollTo({left:target,behavior:'smooth'});
+    }
+  };
+  statusStrip.addEventListener('pointerup',endStripSwipe);
+  statusStrip.addEventListener('pointercancel',endStripSwipe);
+  statusStrip.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')endStripSwipe(e);});
+}
+
 </script>
 
 
